@@ -1,0 +1,450 @@
+Brush Set Report
+JSON: C:\Users\shape\Documents\Open Brush\BrushSets.json
+Written: 2026-08-29 13:14:40
+
+Palette_01  StandardBrushes
+(empty)
+
+Palette_02  AdvancedBrushes
+(empty)
+
+Palette_03  Palette_03
+FacetedTube
+FacetedTube
+4391ffaa-df73-4396-9e33-31e4e4930b27
+
+NeonRider
+NeonRider
+56d65aa6-33c5-451e-b921-4894c0cdd0f8
+
+Shocker
+Shocker
+5f5f7de1-0ed8-4396-a6a4-c6a2eb3ea804
+
+Fire
+Fire
+cb92b597-94ca-4255-b017-0e3f42f12f9e
+
+CosmicVisitor
+CosmicVisitor
+e10718de-6590-44fc-934b-5853990a8262
+
+Wavefront
+Wavefront
+e7e7d2a8-b25e-413f-918c-91ef4782f4b5
+
+Dimensions
+Dimensions
+eeacec8b-a3a8-40a4-8c88-36649c010679
+
+Palette_04  Palette_04
+(empty)
+
+Palette_05  Palette_05
+Encoder
+Encoder
+4444bffb-3a28-4c0e-8d69-750b58b283e1
+
+Akasha
+Akasha
+82c876da-e32a-407f-b732-1dcc714d4b64
+
+Palette_06  Palette_06
+GalacticHoliday
+GalacticHoliday
+a31841d1-c0e1-4a86-805a-b51b7f247d02
+
+Palette_07  Palette_07
+(empty)
+
+Palette_08  Palette_08
+Strobe
+Strobe
+8a0cff48-4e26-4e77-abe8-457970fd7bc9
+
+Sentry
+Sentry
+b8df2f47-91cb-4171-ba33-5ae05add7d64
+
+Palette_09  Palette_09
+(empty)
+
+Palette_10  Metals
+HardwireSurface
+HardwireSurface
+cefd9de3-7bf8-4feb-832b-12b2169b96c6
+
+Palette_11  WindAndFire
+(empty)
+
+Palette_12  Tabs
+ZebraPath
+ZebraPath
+1d3d1bbf-ec7b-4046-be40-a716e62fffb7
+
+Palette_13  Electricity
+(empty)
+
+Palette_14  Glass
+(empty)
+
+Palette_15  Particles
+(empty)
+
+Palette_16  Rain
+(empty)
+
+Palette_17  Exotic
+MetalGrass
+MetalGrass
+28aa0505-5724-47ad-894b-4e270efdd94a
+
+Gratitude
+Gratitude
+57f52879-65f5-42c8-ac13-f8d552f074f9
+
+Ethereal
+Ethereal
+6969eb69-c954-41ac-93b6-d8303f64c013
+
+Palette_18  Patterned Tapers
+(empty)
+
+Palette_19  Patterned Tubes
+(empty)
+
+Palette_20  Patterned Comets
+(empty)
+
+Palette_21  Patterned Strips
+(empty)
+
+Palette_22  Hashes
+(empty)
+
+Palette_23  3dbrushes
+(empty)
+
+Palette_24  Mutable Tapers
+(empty)
+
+Palette_25  Mutable Tubes
+(empty)
+
+Palette_26  Mutable Comets
+(empty)
+
+Palette_27  Immutable Tapers
+(empty)
+
+Palette_28  Immutable Tubes
+(empty)
+
+Palette_29  Immutable Comets
+(empty)
+
+Palette_30  Hypercolor
+(empty)
+
+Palette_31  Exotic Hulls
+(empty)
+
+Palette_32  Transparent Hulls
+(empty)
+
+Palette_33  Hulls
+(empty)
+
+Palette_34  Highly Experimental
+(empty)
+
+Palette_35  Duplicate Brushes
+(empty)
+
+Palette_36  Black Square
+WindowpaneLight
+WindowpaneLight
+0994728c-bdaf-4172-8b3c-f5d2003403ca
+
+Vaza
+Vaza
+0994728c-bdaf-4172-8b3c-f5d2003403cb
+
+Enchanter
+Enchanter
+0bd9301c-f219-4f0e-8d42-3becdb3d723a
+
+Dynamo
+Dynamo
+0bd9701c-f219-4f0e-8d42-3becdb3d723a
+
+GlowBright
+GlowBright
+0bd9801c-f219-4f0e-8d42-3becdb3d723a
+
+Stars
+Stars
+0eb4db27-3f82-408d-b5a1-19ebd7d5b711
+
+CoarseBristles
+CoarseBristles
+1161af82-50cf-47db-9706-0c3576d43c43
+
+Gouache
+Gouache
+1b897b7e-9b76-425a-b031-a867c48df409
+
+SpaceTime
+SpaceTime
+2e3542ff-a1ca-4cd4-b7ab-a4c866c66c26
+
+Afterglow
+Afterglow
+2e3545ff-a1ca-4cd4-b7ab-a4c866c66c26
+
+Tickler
+Tickler
+31aaa256-23fd-450a-af90-2525ab0ec593
+
+Surreal
+Surreal
+40d2fd3a-ba2a-45c6-a078-9f0615b9831e
+
+Astoria
+Astoria
+40d2fd3a-ba2a-45c6-a078-9f0615b9831f
+
+ChainLink
+ChainLink
+5b72da6f-7027-41a3-a173-394fb22880a6
+
+Neotropic
+Neotropic
+5b72da6f-7027-41a3-a173-394fb22880a7
+
+Corsetta
+Corsetta
+67675ce3-4fdb-4ef8-b2d4-aeb532ee7f45
+
+CorsettaAlt
+CorsettaAlt
+67675ce3-4fdb-4ef8-b2d4-aeb532ee7f46
+
+Yttrium
+Yttrium
+6eeb8bb3-ebc2-42d8-84b7-2e63f6eeb8ab
+
+ThickPaint
+ThickPaint
+75b32cf0-fdd6-4d89-a64b-e2a00b247b0f
+
+Scalar
+Scalar
+8da8ba03-241c-4485-a47e-05fe47e0e0ce
+
+Splatter
+Splatter
+8dc4a70c-d558-4efd-a5ed-d4e860f40dc3
+
+SunBeam
+SunBeam
+8ed8ba03-241c-4485-a47e-05fe47e0e0ce
+
+TaperedFlat
+TaperedFlat
+b468c1fb-f254-41ed-8ec9-57030bc5660c
+
+WetPaint
+WetPaint
+b67c0e81-ce6d-40a8-aeb0-ef036b081aa3
+
+DuctTape
+DuctTape
+d0262945-853c-4481-9cbd-88586bed93cb
+
+Pyramidal
+Pyramidal
+d27063b9-e02a-4e44-9eea-a7bae29169ab
+
+Snow
+Snow
+d902ed8b-d0d1-476c-a8de-878a79e3a34c
+
+RobotMetal
+RobotMetal
+db08e2d3-386c-428a-bd60-99ae452b18c6
+
+Glosh
+Glosh
+db08e2d3-386c-728a-bd60-99ae452b18c6
+
+Aluminati
+Aluminati
+edc335ee-badc-48dd-b957-007b1ef8a76a
+
+Circuits
+Circuits
+edc395ee-badc-48dd-b957-007b1ef8a76a
+
+SingleSided
+SingleSided
+f0a2298a-be80-432c-9fee-a86dcc06f4f9
+
+Paper
+Paper
+f1114e2e-eb8d-4fde-915a-6e653b54e9f5
+
+Ink
+Ink
+f5c336cf-5108-4b40-ade9-c687504385ab
+
+OilPaint
+OilPaint
+f72ec0e7-a844-4e38-82e3-140c44772699
+
+Palette_37  Low Visibility
+Builder
+Builder
+059673de-47bf-4ff0-aa6b-7b66bef1fd1d
+
+Arrival
+Arrival
+0bd9601c-f219-4f0e-8d42-3becdb3d723a
+
+MoonWorld
+MoonWorld
+22128786-94ce-4e68-b79a-9bcd9b18d14f
+
+Psyche
+Psyche
+24b04c82-245d-4a97-8813-5b2a12e47b7d
+
+FlashWave
+FlashWave
+266cfc10-61de-48fe-82cf-ba6c732847e4
+
+Interstitial
+Interstitial
+3fc9c12c-4250-4bfa-8e46-61a3d3ceb5e9
+
+Rave
+Rave
+59c00db6-e371-455f-9dac-710a88b1b844
+
+SolarImpact
+SolarImpact
+6d4830ca-57f6-4ccd-8bba-21453b5d7833
+
+Flutter
+Flutter
+8239d7a9-e878-42af-ab24-821d5418c519
+
+Bubbles
+Bubbles
+89d104cd-d012-426b-b5b3-bbaee63ac43c
+
+Tensor
+Tensor
+912bc96a-cf19-42c7-a859-b040a9594758
+
+Rings
+Rings
+dccbcd1d-65b9-4ce6-9618-47b59920d556
+
+RogueComet
+RogueComet
+e3df5849-aa67-4d37-b718-efb1b269e3c4
+
+Enrichment
+Enrichment
+e7f69067-e5f0-499a-a8ba-05ec0036fe65
+
+Puff
+Puff
+f1fa3e08-7798-4530-9601-ae4df0aa4018
+
+RedVelvet
+RedVelvet
+f456e79c-ec16-4a6a-a794-8de1972220ad
+
+Flurry
+Flurry
+f91a43b2-49b2-4f8e-9e19-956248e958af
+
+Synchronizer
+Synchronizer
+fc9b4141-73b3-46b0-bf95-7972a79bca6d
+
+
+MACHINE
+guid	durableName	displayName	prefabScript	shader	tags	audioReactive	hasPrefab	nondeterministic	blendMode	opacity	emissiveFactor	colorLuminanceMin	particleRate	renderBackfaces	backIsInvisible	useBloomSwatch	hasTimeBlend	hasTimeOverride	shaderFloats	shaderColors	buttonTexture	texW	texH	iconLuma	assetPath	missingDescriptor
+4391ffaa-df73-4396-9e33-31e4e4930b27	FacetedTube	FacetedTube	TubeBrush	Brush/Special/Faceted	experimental,stock_basic	0	1	0	None	1	0	0	1	0	0	0	0	0			brush-FacetedTube	1024	1024	0.061/0.754	Assets/Resources/Brushes/Basic/FacetedTube/FacetedTube.asset	0
+56d65aa6-33c5-451e-b921-4894c0cdd0f8	NeonRider	NeonRider	TubeBrush	Brush/Intro/DiffuseDoubleSided	Eliason,TubeTapered,Tubes,default	0	1	1	AlphaMask	1	0	0	1	0	0	0	0	0	_Cutoff=0.5	_Color=1,1,1,1	brush-NeonRider	1024	1024	0.015/0.867	Assets/Resources/Brushes/TubeTaperedEV/NeonRider/NeonRider.asset	0
+5f5f7de1-0ed8-4396-a6a4-c6a2eb3ea804	Shocker	Shocker	TubeBrush	Brush/Intro/Unlit	Eliason,TubeTapered,Tubes,default	0	1	1	AlphaMask	1	0	0	1	0	0	0	0	0	_Cutoff=0.5		brush-Shocker	1024	1024	0.012/0.868	Assets/Resources/Brushes/TubeTaperedEV/Shocker/Shocker.asset	0
+cb92b597-94ca-4255-b017-0e3f42f12f9e	Fire	Fire	QuadStripBrushStretchUV	Brush/Special/Fire	default,audioreactive,stock_basic	1	1	0	AdditiveBlend	1	10	0.04	1	1	0	1	1	1	_EmissionGain=0.5;_TimeBlend=0		brush-Fire	1024	1024	0.027/0.928	Assets/Resources/Brushes/Basic/Fire/Fire.asset	0
+e10718de-6590-44fc-934b-5853990a8262	CosmicVisitor	CosmicVisitor	TubeBrush	Brush/LoftedHueShift	Eliason,TubeDistUVS,Tubes,default	0	1	0	AlphaMask	1	0	0	1	0	0	0	0	0	_Shininess=0.38	_Color=1,1,1,1;_SpecColor=0.5,0.5,0.5,0	brush-CosmicVisitor	1024	1024	0.119/0.840	Assets/Resources/Brushes/TubeDistUVSEV/CosmicVisitor/CosmicVisitor.asset	0
+e7e7d2a8-b25e-413f-918c-91ef4782f4b5	Wavefront	Wavefront	TubeBrush	Brush/Intro/StandardDoubleSided	Eliason,TubeDistUV,Tubes,default	0	1	1	AlphaMask	1	0	0	1	0	0	0	0	0	_Shininess=0.078;_Cutoff=0.5	_Color=1,1,1,1;_SpecColor=0.5,0.5,0.5,0	brush-Wavefront	1024	1024	0.136/0.771	Assets/Resources/Brushes/TubeDistUVEV/Wavefront/Wavefront.asset	0
+eeacec8b-a3a8-40a4-8c88-36649c010679	Dimensions	Dimensions	TubeBrush	Brush/Intro/Unlit	Eliason,TubeDistUV,Tubes,default	0	1	0	AlphaMask	1	0	0	1	0	0	0	0	0	_Cutoff=0.6		brush-Dimensions	1024	1024	0.047/0.750	Assets/Resources/Brushes/TubeDistUVEV/Dimensions/Dimensions.asset	0
+4444bffb-3a28-4c0e-8d69-750b58b283e1	Encoder	Encoder	TubeBrush	Brush/Intro/StandardDoubleSided	Eliason,TubeDistUV,Tubes,default	0	1	1	AlphaMask	1	0	0	1	0	0	0	0	0	_Shininess=0.078;_Cutoff=0.5	_Color=1,1,1,1;_SpecColor=0.5,0.5,0.5,0	brush-Encoder	1024	1024	0.013/0.945	Assets/Resources/Brushes/TubeDistUVEV/Encoder/Encoder.asset	0
+82c876da-e32a-407f-b732-1dcc714d4b64	Akasha	Akasha	QuadStripBrushDistanceUV	Brush/Intro/SoftHighlighter	Eliason,DistanceUV,Strips,default	0	1	0	None	1	0	0	1	0	0	0	0	0			brush-Akasha	1024	1024	0.034/0.790	Assets/Resources/Brushes/StripsDistUVEV/Akasha/Akasha.asset	0
+a31841d1-c0e1-4a86-805a-b51b7f247d02	GalacticHoliday	GalacticHoliday	TubeBrush	Brush/Special/Wind	Eliason,TubeDistUVS,Tubes,default	0	1	0	AlphaMask	1	0	0	1	0	0	0	1	1	_Opacity=1;_TimeBlend=0		brush-GalacticHoliday	1024	1024	0.022/0.845	Assets/Resources/Brushes/TubeDistUVSEV/GalacticHoliday/GalacticHoliday.asset	0
+8a0cff48-4e26-4e77-abe8-457970fd7bc9	Strobe	Strobe	TubeBrush	Brush/Special/Wind	Eliason,TubeDistUVS,Tubes,default	0	1	1	AlphaMask	1	0	0	1	0	0	0	1	1	_Opacity=1;_TimeBlend=0		brush-Strobe	1024	1024	0.076/0.851	Assets/Resources/Brushes/TubeDistUVSEV/Strobe/Strobe.asset	0
+b8df2f47-91cb-4171-ba33-5ae05add7d64	Sentry	Sentry	TubeBrush	Brush/Intro/VelvetInk	Eliason,TubeDistUV,Tubes,default	0	1	0	None	1	0	0	1	0	0	0	0	0			brush-Sentry	1024	1024	0.007/0.937	Assets/Resources/Brushes/TubeDistUVEV/Sentry/Sentry.asset	0
+cefd9de3-7bf8-4feb-832b-12b2169b96c6	HardwireSurface	HardwireSurface	ThickGeometryBrush	Standard	default,default	0	1	0	None	1	0	0	1	0	0	0	0	0	_Glossiness=0.5;_Metallic=0;_Cutoff=0.5	_Color=1,1,1,1;_EmissionColor=0,0,0,1	brush-HardwireSurface	1024	1024	0.009/0.943	Assets/Resources/Brushes/Restructure/HardwireSurface/HardwireSurface.asset	0
+1d3d1bbf-ec7b-4046-be40-a716e62fffb7	ZebraPath	ZebraPath	GeniusParticlesBrush	Brush/Particle/Embers	Power,Particle,FX,default	1	1	1	AlphaMask	1	0	0.04	0.35	0	0	1	1	1	_TimeBlend=0	_TintColor=0.5,0.5,0.5,0.5	brush-ZebraPath	1024	1024	0.009/0.982	Assets/Resources/Brushes/FXParticlesEP/ZebraPath/ZebraPath.asset	0
+28aa0505-5724-47ad-894b-4e270efdd94a	MetalGrass	MetalGrass	TubeBrush	Brush/Special/Petal	Eliason,TubePetal,Tubes,default	0	1	0	None	1	0	0	0	0	0	1	0	0	_Shininess=0.615	_SpecColor=0.5,0.5,0.5,0	brush-MetalGrass	1024	1024	0.079/0.856	Assets/Resources/Brushes/TubePetalEV/MetalGrass/MetalGrass.asset	0
+57f52879-65f5-42c8-ac13-f8d552f074f9	Gratitude	Gratitude	TubeBrush	Brush/Disco	Eliason,TubeDistUVS,Tubes,default	0	1	0	AlphaMask	1	0	0	1	0	0	0	1	1	_Shininess=0.078;_TimeBlend=0	_Color=1,1,1,1;_SpecColor=0.5,0.5,0.5,0	brush-Gratitude	1024	1024	0.044/0.736	Assets/Resources/Brushes/TubeDistUVSEV/Gratitude/Gratitude.asset	0
+6969eb69-c954-41ac-93b6-d8303f64c013	Ethereal	Ethereal	TubeBrush	Brush/Special/Streamers	Eliason,TubeDIstUVS,Tubes,default	0	1	0	AlphaMask	1	0	0	1	0	0	0	1	1	_EmissionGain=0.25;_TimeBlend=0		brush-Ethereal	1024	1024	0.017/0.913	Assets/Resources/Brushes/TubeDistUVSEV/Ethereal/Ethereal.asset	0
+0994728c-bdaf-4172-8b3c-f5d2003403ca	WindowpaneLight	WindowpaneLight	QuadStripBrushStretchUV	Brush/StandardSingleSided	Power,Line,Strips,default	0	1	0	AlphaMask	1	0	0	1	0	0	0	0	0	_Shininess=0.79;_Cutoff=0.5	_Color=1,1,1,1;_SpecColor=0.5,0.5,0.5,0	brush-WindowpaneLight	1024	1024	0.000/1.000	Assets/Resources/Brushes/StripsLineEP/WindowpaneLight/WindowpaneLight.asset	0
+0994728c-bdaf-4172-8b3c-f5d2003403cb	Vaza	Vaza	QuadStripBrushStretchUV	Brush/StandardSingleSided	Eliason,Line,Strips,default	0	1	0	AlphaMask	1	0	0	1	0	0	0	0	0	_Shininess=0.79;_Cutoff=0.5	_Color=1,1,1,1;_SpecColor=0.5,0.5,0.5,0	brush-Vaza	1024	1024	0.000/1.000	Assets/Resources/Brushes/StripsLineEV/Vaza/Vaza.asset	0
+0bd9301c-f219-4f0e-8d42-3becdb3d723a	Enchanter	Enchanter	Square3DPrintBrush	Brush/Special/Wind	Eliason,Print3d,Geom,default	0	1	0	None	1	0.2	0	1	0	0	1	1	1	_Opacity=1;_TimeBlend=0		brush-Enchanter	1024	1024	0.000/1.000	Assets/Resources/Brushes/GeoPrint3dEV/Enchanter/Enchanter.asset	0
+0bd9701c-f219-4f0e-8d42-3becdb3d723a	Dynamo	Dynamo	Square3DPrintBrush	Brush/Special/Wind	Eliason,Print3d,Geom,default	0	1	0	None	1	0.2	0	1	1	0	1	1	1	_Opacity=1;_TimeBlend=0		brush-Dynamo	1024	1024	0.000/1.000	Assets/Resources/Brushes/GeoPrint3dEV/Dynamo/Dynamo.asset	0
+0bd9801c-f219-4f0e-8d42-3becdb3d723a	GlowBright	GlowBright	Square3DPrintBrush	Standard Triplanar	Eliason,Print3d,Geom,default	0	1	0	None	1	0.6	0	1	0	0	1	0	0	_Glossiness=0.5;_Metallic=0	_Color=1,1,1,1	brush-GlowBright	1024	1024	0.000/1.000	Assets/Resources/Brushes/GeoPrint3dEV/GlowBright/GlowBright.asset	0
+0eb4db27-3f82-408d-b5a1-19ebd7d5b711	Stars	Stars	GeniusParticlesBrush	Brush/Particle/Stars	default,audioreactive,particle,stock_basic	1	1	1	AdditiveBlend	1	10	0.04	0.3	1	0	0	1	1	_TimeBlend=0		brush-Stars	1024	1024	0.000/1.000	Assets/Resources/Brushes/Basic/Stars/Stars.asset	0
+1161af82-50cf-47db-9706-0c3576d43c43	CoarseBristles	CoarseBristles	SprayBrush	Brush/DiffuseDoubleSided	default,stock_basic	0	1	1	AlphaMask	1	0	0	1	1	0	0	0	0	_Cutoff=0.25	_Color=1,1,1,1	brush-CoarseBristles	1024	1024	0.000/1.000	Assets/Resources/Brushes/Basic/CoarseBristles/CoarseBristles.asset	0
+1b897b7e-9b76-425a-b031-a867c48df409	Gouache	Gouache	QuadStripBrushStretchUV	Brush/StandardDoubleSided	experimental,stock_advanced	0	1	0	AlphaMask	1	0	0	1	1	0	0	0	0	_Shininess=0.01;_Cutoff=0.5	_Color=1,1,1,1;_SpecColor=0,0,0,0	brush-Gouache	1024	1024	0.000/1.000	Assets/Resources/X/Brushes/Gouache/Gouache.asset	0
+2e3542ff-a1ca-4cd4-b7ab-a4c866c66c26	SpaceTime	SpaceTime	ConcaveHullBrush	Brush/Special/HypercolorDoubleSided	Eliason,ConcaveHull,Hulls,default	1	1	0	AdditiveBlend	1	0.5	0.04	1	0	0	1	1	1	_Shininess=0.52;_Cutoff=0.5;_TimeBlend=0	_Color=1,1,1,1;_SpecColor=0.5,0.5,0.5,0	brush-SpaceTime	1024	1024	0.000/1.000	Assets/Resources/Brushes/HyperwaveEV/SpaceTime/SpaceTime.asset	0
+2e3545ff-a1ca-4cd4-b7ab-a4c866c66c26	Afterglow	Afterglow	ConcaveHullBrush	Brush/Special/HypercolorDoubleSided	Eliason,ConcaveHull,Hulls,default	1	1	0	AdditiveBlend	1	0.5	0.04	1	0	0	1	1	1	_Shininess=0.52;_Cutoff=0.5;_TimeBlend=0	_Color=1,1,1,1;_SpecColor=0.5,0.5,0.5,0	brush-Afterglow	1024	1024	0.000/1.000	Assets/Resources/Brushes/HyperwaveEV/Afterglow/Afterglow.asset	0
+31aaa256-23fd-450a-af90-2525ab0ec593	Tickler	Tickler	MidpointPlusLifetimeSprayBrush	Brush/Special/HyperGrid	Eliason,MidPlusLife,Strips,default	1	1	0	AdditiveBlend	1	0	0.04	0	0	0	0	1	1	_Opacity=1;_TimeBlend=0	_TintColor=0.5,0.5,0.5,0.5	brush-Tickler	1024	1024	0.000/1.000	Assets/Resources/Brushes/StripsMidPlusLifeEV/Tickler/Tickler.asset	0
+40d2fd3a-ba2a-45c6-a078-9f0615b9831e	Surreal	Surreal	QuadStripBrushDistanceUV	Standard Triplanar Transparent	Power,DistanceUV,Strips,default	0	1	0	AlphaMask	1	0	0	1	0	0	0	0	0	_Glossiness=0.38;_Metallic=0	_Color=1,1,1,1	brush-Surreal	1024	1024	0.000/1.000	Assets/Resources/Brushes/StripsDistanceUVEP/Surreal/Surreal.asset	0
+40d2fd3a-ba2a-45c6-a078-9f0615b9831f	Astoria	Astoria	QuadStripBrushDistanceUV	Standard (Specular setup)	Eliason,DistUV,Strips,default	0	1	0	AlphaMask	1	0	0	1	0	0	0	0	0	_Glossiness=0.36;_Cutoff=0.5	_Color=1,1,1,1;_SpecColor=0.2,0.2,0.2,1;_EmissionColor=1,1,1,1	brush-Astoria	1024	1024	0.000/1.000	Assets/Resources/Brushes/StripsDistUVEV/Astoria/Astoria.asset	0
+5b72da6f-7027-41a3-a173-394fb22880a6	ChainLink	ChainLink	QuadStripBrushStretchUV	Brush/LoftedHueShift	default,default	1	1	0	AdditiveBlend	1	0	0.04	1	0	0	0	0	0	_Shininess=0.196	_Color=1,1,1,1;_SpecColor=0.5,0.5,0.5,0	brush-ChainLink	1024	1024	0.000/1.000	Assets/Resources/Brushes/Restructure/ChainLink/ChainLink.asset	0
+5b72da6f-7027-41a3-a173-394fb22880a7	Neotropic	Neotropic	QuadStripBrushStretchUV	Brush/LoftedHueShift	Eliason,LineWithWidth,Strips,default	1	1	0	AdditiveBlend	1	0	0.04	1	0	0	0	0	0	_Shininess=0.196	_Color=1,1,1,1;_SpecColor=0.5,0.5,0.5,0	brush-Neotropic	1024	1024	0.000/1.000	Assets/Resources/Brushes/StripsLineWithWidthEV/Neotropic/Neotropic.asset	0
+67675ce3-4fdb-4ef8-b2d4-aeb532ee7f45	Corsetta	Corsetta	SprayBrush	Standard	Power,Spray,Strips,default	0	1	1	AlphaMask	1	0	0	1	0	0	0	0	0	_Glossiness=0.5;_Metallic=0;_Cutoff=0.5	_Color=1,1,1,1;_EmissionColor=0,0,0,1	brush-Corsetta	1024	1024	0.000/1.000	Assets/Resources/Brushes/StripsSprayEP/Corsetta/Corsetta.asset	0
+67675ce3-4fdb-4ef8-b2d4-aeb532ee7f46	CorsettaAlt	CorsettaAlt	SprayBrush	Standard	Eliason,Strips,Spray,default	0	1	1	AlphaMask	1	0	0	1	0	0	0	0	0	_Glossiness=0.5;_Metallic=0;_Cutoff=0.5	_Color=1,1,1,1;_EmissionColor=0,0,0,1	brush-CorsettaAlt	1024	1024	0.000/1.000	Assets/Resources/Brushes/StripsSprayEV/CorsettaAlt/CorsettaAlt.asset	0
+6eeb8bb3-ebc2-42d8-84b7-2e63f6eeb8ab	Yttrium	Yttrium	QuadStripBrushStretchUV	Hidden/InternalErrorShader	default,audioreactive	1	1	0	AdditiveBlend	1	10	0.04	1	0	0	1	0	0			brush-Yttrium	1024	1024	0.000/1.000	Assets/Resources/Brushes/YttriumSeries/Yttrium/Yttrium.asset	0
+75b32cf0-fdd6-4d89-a64b-e2a00b247b0f	ThickPaint	ThickPaint	QuadStripBrushDistanceUV	Brush/StandardDoubleSided	default,stock_basic	0	1	0	AlphaMask	1	0	0	1	1	0	0	0	0	_Shininess=0.4;_Cutoff=0.5	_Color=1,1,1,1;_SpecColor=0.24,0.24,0.24,1	brush-ThickPaint	1024	1024	0.000/1.000	Assets/Resources/Brushes/Basic/ThickPaint/ThickPaint.asset	0
+8da8ba03-241c-4485-a47e-05fe47e0e0ce	Scalar	Scalar	ConcaveHullBrush	Standard Triplanar Transparent	Eliason,ConcaveHull,Geom,default	0	1	0	None	1	0	0	1	0	0	0	0	0	_Glossiness=0.5;_Metallic=0	_Color=1,1,1,1	brush-Scalar	1024	1024	0.000/1.000	Assets/Resources/Brushes/GeoConcaveHullEV/Scalar/Scalar.asset	0
+8dc4a70c-d558-4efd-a5ed-d4e860f40dc3	Splatter	Splatter	SprayBrush	Brush/DiffuseDoubleSided	default,stock_basic	0	1	1	AlphaMask	1	0	0	1	1	0	0	0	0	_Cutoff=0.2	_Color=1,1,1,1	brush-Splatter	1024	1024	0.000/1.000	Assets/Resources/Brushes/Basic/Splatter/Splatter.asset	0
+8ed8ba03-241c-4485-a47e-05fe47e0e0ce	SunBeam	SunBeam	ConcaveHullBrush	Standard Triplanar Transparent	Eliason,ConcaveHull,Geom,default	0	1	0	None	1	0	0	1	0	0	0	0	0	_Glossiness=0.5;_Metallic=0	_Color=1,1,1,1	brush-SunBeam	1024	1024	0.000/1.000	Assets/Resources/Brushes/GeoConcaveHullEV/SunBeam/SunBeam.asset	0
+b468c1fb-f254-41ed-8ec9-57030bc5660c	TaperedFlat	TaperedFlat	QuadStripBrushStretchUV	Brush/DiffuseDoubleSided	default,stock_basic	0	1	0	AlphaMask	1	0	0	1	1	0	0	0	0	_Cutoff=0.067	_Color=1,1,1,1	brush-TaperedFlat	1024	1024	0.000/1.000	Assets/Resources/Brushes/Basic/TaperedFlat/TaperedFlat.asset	0
+b67c0e81-ce6d-40a8-aeb0-ef036b081aa3	WetPaint	WetPaint	QuadStripBrushStretchUV	Brush/StandardDoubleSided	default,stock_basic	0	1	0	AlphaMask	1	0	0	1	1	0	0	0	0	_Shininess=0.85;_Cutoff=0.3	_Color=1,1,1,1;_SpecColor=0.14,0.14,0.14,0	brush-WetPaint	1024	1024	0.000/1.000	Assets/Resources/Brushes/Basic/WetPaint/WetPaint.asset	0
+d0262945-853c-4481-9cbd-88586bed93cb	DuctTape	DuctTape	QuadStripBrushDistanceUV	Brush/StandardDoubleSided	default,stock_basic	0	1	0	AlphaMask	1	0	0	1	1	0	0	0	0	_Shininess=0.414;_Cutoff=0.2	_Color=0.71,0.71,0.71,1;_SpecColor=0.54,0.54,0.54,1	brush-DuctTape	1024	1024	0.000/1.000	Assets/Resources/Brushes/Basic/DuctTape/DuctTape.asset	0
+d27063b9-e02a-4e44-9eea-a7bae29169ab	Pyramidal	Pyramidal	ConcaveHullBrush	Standard Triplanar	Eliason,ConcaveHull,Geom,default	0	1	0	AlphaMask	1	0	0	1	0	0	0	0	0	_Glossiness=0.5;_Metallic=0	_Color=1,1,1,1	brush-Pyramidal	1024	1024	0.000/1.000	Assets/Resources/Brushes/GeoConcaveHullEV/Pyramidal/Pyramidal.asset	0
+d902ed8b-d0d1-476c-a8de-878a79e3a34c	Snow	Snow	GeniusParticlesBrush	Brush/Particle/Snow	default,audioreactive,particle,stock_basic	1	1	1	AdditiveBlend	1	0	0.04	0.35	1	0	0	1	1	_Opacity=1;_TimeBlend=0	_TintColor=1,1,1,1	brush-Snow	1024	1024	0.000/1.000	Assets/Resources/Brushes/Basic/Snow/Snow.asset	0
+db08e2d3-386c-428a-bd60-99ae452b18c6	RobotMetal	RobotMetal	QuadStripBrushDistanceUV	Standard	Power,DistUV,Strips,default	0	1	0	None	1	0	0	1	0	0	1	0	0	_Glossiness=0.5;_Metallic=0;_Cutoff=0.5	_Color=1,1,1,1;_EmissionColor=0,0,0,1	brush-RobotMetal	1024	1024	0.000/1.000	Assets/Resources/Brushes/StripsDistanceUVEP/RobotMetal/RobotMetal.asset	0
+db08e2d3-386c-728a-bd60-99ae452b18c6	Glosh	Glosh	QuadStripBrushDistanceUV	Standard	default,default	0	1	0	None	1	0	0	1	0	0	1	0	0	_Glossiness=0.5;_Metallic=0;_Cutoff=0.5	_Color=1,1,1,1;_EmissionColor=0,0,0,1	brush-Glosh	1024	1024	0.000/1.000	Assets/Resources/Brushes/Restructure/Glosh/Glosh.asset	0
+edc335ee-badc-48dd-b957-007b1ef8a76a	Aluminati	Aluminati	QuadStripBrushDistanceUV	Hidden/InternalErrorShader	default,default	1	1	0	AdditiveBlend	1	0	0.04	1	0	0	0	0	0			brush-Aluminati	1024	1024	0.000/1.000	Assets/Resources/Brushes/Restructure/Aluminati/Aluminati.asset	0
+edc395ee-badc-48dd-b957-007b1ef8a76a	Circuits	Circuits	QuadStripBrushDistanceUV	Standard	default,default	1	1	0	AdditiveBlend	1	0	0.04	1	0	0	0	0	0	_Glossiness=0.5;_Metallic=0;_Cutoff=0.5	_Color=1,1,1,1;_EmissionColor=0,0,0,1	brush-Circuits	1024	1024	0.000/1.000	Assets/Resources/Brushes/Restructure/Circuits/Circuits.asset	0
+f0a2298a-be80-432c-9fee-a86dcc06f4f9	SingleSided	SingleSided	QuadStripBrushStretchUV	Brush/DiffuseSingleSided	experimental,stock_advanced	0	1	0	AlphaMask	1	0	0	1	0	1	0	0	0	_Cutoff=0.5	_Color=1,1,1,1	brush-SingleSided	1024	1024	0.000/1.000	Assets/Resources/X/Brushes/SingleSided/SingleSided.asset	0
+f1114e2e-eb8d-4fde-915a-6e653b54e9f5	Paper	Paper	QuadStripBrushDistanceUV	Brush/StandardDoubleSided	default,stock_basic	0	1	0	AlphaMask	1	0	0	1	1	0	0	0	0	_Shininess=0.145;_Cutoff=0.16	_Color=1,1,1,1;_SpecColor=0.14,0.14,0.14,1	brush-Paper	1024	1024	0.000/1.000	Assets/Resources/Brushes/Basic/Paper/Paper.asset	0
+f5c336cf-5108-4b40-ade9-c687504385ab	Ink	Ink	QuadStripBrushStretchUV	Brush/StandardDoubleSided	default,stock_basic	0	1	0	AlphaMask	1	0	0	1	1	0	0	0	0	_Shininess=0.4;_Cutoff=0.5	_Color=1,1,1,1;_SpecColor=0.24,0.24,0.24,1	brush-Ink	1024	1024	0.000/1.000	Assets/Resources/Brushes/Basic/Ink/Ink.asset	0
+f72ec0e7-a844-4e38-82e3-140c44772699	OilPaint	OilPaint	QuadStripBrushStretchUV	Brush/StandardDoubleSided	default,stock_basic	0	1	0	AlphaMask	1	0	0	1	1	0	0	0	0	_Shininess=0.4;_Cutoff=0.5	_Color=1,1,1,1;_SpecColor=0.24,0.24,0.24,1	brush-OilPaint	1024	1024	0.000/1.000	Assets/Resources/Brushes/Basic/OilPaint/OilPaint.asset	0
+059673de-47bf-4ff0-aa6b-7b66bef1fd1d	Builder	Builder	TubeBrush	Brush/Intro/SoftHighlighter	Eliason,TubeStretchUV,Tubes,default	0	1	0	AlphaMask	1	0	0	1	0	0	0	0	0			brush-Builder	1024	1024	0.010/0.909	Assets/Resources/Brushes/TubeStretchUVEV/Builder/Builder.asset	0
+0bd9601c-f219-4f0e-8d42-3becdb3d723a	Arrival	Arrival	Square3DPrintBrush	Brush/Additive	Eliason,Print3d,Geom,default	0	1	0	None	1	0.2	0	1	0	0	1	0	0	_Opacity=1		brush-Arrival	1024	1024	0.000/1.000	Assets/Resources/Brushes/GeoPrint3dEV/Arrival/Arrival.asset	0
+22128786-94ce-4e68-b79a-9bcd9b18d14f	MoonWorld	MoonWorld	GeniusParticlesBrush	Brush/Intro/DiffuseDoubleSided	Eliason,Particle,FX,DiffuseDouble,default	1	1	1	AdditiveBlend	1	0.5	0.04	0.35	0	0	0	0	0	_Cutoff=0.5	_Color=1,1,1,1	brush-MoonWorld	1024	1024	0.001/0.995	Assets/Resources/Brushes/FXParticleEV/MoonWorld/MoonWorld.asset	0
+24b04c82-245d-4a97-8813-5b2a12e47b7d	Psyche	Psyche	TubeBrush	Brush/Intro/DiffuseDoubleSided	Eliason,TubeDistUVS,Tubes,default	0	1	0	AlphaMask	1	0	0	1	0	0	0	0	0	_Cutoff=0.5	_Color=1,1,1,1	brush-Psyche	1024	1024	0.003/0.977	Assets/Resources/Brushes/TubeDistUVSEV/Psyche/Psyche.asset	0
+266cfc10-61de-48fe-82cf-ba6c732847e4	FlashWave	FlashWave	MidpointPlusLifetimeSprayBrush	Brush/Special/DanceFloor	Eliason,MidPlusLife,Strips,default	1	1	0	None	1	0	0.04	0	0	0	0	1	1	_TimeBlend=0	_TintColor=0.5,0.5,0.5,0.5	brush-FlashWave	1024	1024	0.002/0.998	Assets/Resources/Brushes/StripsMidPlusLifeEV/FlashWave/FlashWave.asset	0
+3fc9c12c-4250-4bfa-8e46-61a3d3ceb5e9	Interstitial	Interstitial	TubeBrush	Brush/Special/CelVinyl	Eliason,TubeDistUV,Tubes,default	1	1	0	AlphaMask	1	0.5	0.04	1	0	0	1	0	0	_Cutoff=1	_Color=0,0,0,1	brush-Interstitial	1024	1024	0.010/0.927	Assets/Resources/Brushes/TubeDistUVEV/Interstitial/Interstitial.asset	0
+59c00db6-e371-455f-9dac-710a88b1b844	Rave	Rave	TubeBrush	Brush/Special/TaperedHueShift	Eliason,TubeDistUV,Tubes,default	0	1	0	None	1	0	0	1	0	0	0	0	0	_Cutoff=0.5		brush-Rave	1024	1024	0.002/0.996	Assets/Resources/Brushes/TubeDistUVEV/Rave/Rave.asset	0
+6d4830ca-57f6-4ccd-8bba-21453b5d7833	SolarImpact	SolarImpact	HullBrush	Brush/Special/Wind	Eliason,Hull,Hulls,default	0	1	0	None	1	0	0	1	0	0	0	1	1	_Opacity=1;_TimeBlend=0		brush-SolarImpact	1024	1024	0.002/1.000	Assets/Resources/Brushes/HullEV/SolarImpact/SolarImpact.asset	0
+8239d7a9-e878-42af-ab24-821d5418c519	Flutter	Flutter	TubeBrush	Brush/Intro/SoftHighlighter	Eliason,TubeDistUVS,Tubes,default	0	1	0	AlphaMask	1	0	0	1	0	0	0	0	0			brush-Flutter	1024	1024	0.006/0.956	Assets/Resources/Brushes/TubeDistUVSEV/Flutter/Flutter.asset	0
+89d104cd-d012-426b-b5b3-bbaee63ac43c	Bubbles	Bubbles	GeniusParticlesBrush	Brush/Particle/Bubbles	default,particle,stock_basic	0	1	1	AdditiveBlend	1	0	0.04	0.15	1	0	0	1	1	_Opacity=1;_TimeBlend=0		brush-Bubbles	1024	1024	0.000/0.997	Assets/Resources/Brushes/Basic/Bubbles/Bubbles.asset	0
+912bc96a-cf19-42c7-a859-b040a9594758	Tensor	Tensor	TubeBrush	Brush/Intro/DiffuseDoubleSided	Eliason,TubeTapered,Tubes,default	0	1	0	AlphaMask	1	0	0	1	0	0	0	0	0	_Cutoff=0.45	_Color=0.91,0.41,0.16,1	brush-Tensor	1024	1024	0.000/0.994	Assets/Resources/Brushes/TubeTaperedEV/Tensor/Tensor.asset	0
+dccbcd1d-65b9-4ce6-9618-47b59920d556	Rings	Rings	TubeBrush	Brush/StandardDoubleSided	Eliason,TubeComet,Tubes,default	0	1	0	AlphaMask	1	0	0	1	0	0	0	0	0	_Shininess=0.078;_Cutoff=0.5	_Color=1,1,1,1;_SpecColor=0,0,0,0	brush-Rings	1024	1024	0.001/0.995	Assets/Resources/Brushes/TubeCometEV/Rings/Rings.asset	0
+e3df5849-aa67-4d37-b718-efb1b269e3c4	RogueComet	RogueComet	TubeBrush	Brush/Intro/Unlit	Eliason,TubeDistUV,Tubes,default	0	1	0	AlphaMask	1	0	0	1	0	0	0	0	0	_Cutoff=0.52		brush-RogueComet	1024	1024	0.009/0.922	Assets/Resources/Brushes/TubeDistUVEV/RogueComet/RogueComet.asset	0
+e7f69067-e5f0-499a-a8ba-05ec0036fe65	Enrichment	Enrichment	FlatGeometryBrush	Brush/Special/Fairy	Eliason,FlatDistance,Strips,default	0	1	0	None	1	0	0	1	0	0	1	1	1	_EmissionGain=0.01;_TimeBlend=0		brush-Enrichment	1024	1024	0.001/0.991	Assets/Resources/Brushes/StripsFlatDistanceEV/Enrichment/Enrichment.asset	0
+f1fa3e08-7798-4530-9601-ae4df0aa4018	Puff	Puff	GeniusParticlesBrush	Brush/Particle/Smoke	Eliason,Particle,FX,Smoke,default	0	1	0	AlphaMask	1	0	0.01	0.05	0	0	0	1	1	_Opacity=1;_TimeBlend=0	_TintColor=0.5,0.5,0.5,0.5	brush-Puff	1024	1024	0.003/0.976	Assets/Resources/Brushes/FXParticleEV/Puff/Puff.asset	0
+f456e79c-ec16-4a6a-a794-8de1972220ad	RedVelvet	RedVelvet	TubeBrush	Brush/StandardDoubleSided	Eliason,TubeComet,Tubes,default	0	1	0	AlphaMask	1	0	0	1	0	0	0	0	0	_Shininess=0.078;_Cutoff=0.48	_Color=1,1,1,1;_SpecColor=0,0,0,0	brush-RedVelvet	1024	1024	0.001/0.997	Assets/Resources/Brushes/TubeCometEV/RedVelvet/RedVelvet.asset	0
+f91a43b2-49b2-4f8e-9e19-956248e958af	Flurry	Flurry	SprayBrush	Brush/Intro/DiffuseDoubleSided	Eliason,Spray,Strips,default	0	1	0	None	1	0	0	1	0	0	0	0	0	_Cutoff=0.5	_Color=1,1,1,1	brush-Flurry	1024	1024	0.002/0.975	Assets/Resources/Brushes/StripsSprayEV/Flurry/Flurry.asset	0
+fc9b4141-73b3-46b0-bf95-7972a79bca6d	Synchronizer	Synchronizer	HullBrush	Brush/StandardDoubleSided	Eliason,Hull,Hulls,default	1	1	0	None	1	0	0	1	0	0	0	0	0	_Shininess=0.078;_Cutoff=0.5	_Color=1,1,1,1;_SpecColor=0,0,0,0	brush-Synchronizer	1024	1024	0.006/0.999	Assets/Resources/Brushes/HullEV/Synchronizer/Synchronizer.asset	0

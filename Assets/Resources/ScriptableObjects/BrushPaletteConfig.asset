@@ -1,0 +1,244 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b82f01d4eb65c4eac073e4929032e7, type: 3}
+  m_Name: BrushPaletteConfig
+  m_EditorClassIdentifier: 
+  palettes:
+  - id: Palette_01
+    displayName: StandardBrushes
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 1, g: 1, b: 1, a: 1}
+    slotIcon: {fileID: 0}
+  - id: Palette_02
+    displayName: AdvancedBrushes
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 1, g: 1, b: 1, a: 1}
+    slotIcon: {fileID: 0}
+  - id: Palette_03
+    displayName: Palette_03
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.898039, g: 0.223529, b: 0.207843, a: 1}
+    slotIcon: {fileID: 2800000, guid: f64d8b5d8c923bf40a303ca03158213f, type: 3}
+  - id: Palette_04
+    displayName: 
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.984314, g: 0.54902, b: 0, a: 1}
+    slotIcon: {fileID: 2800000, guid: fa7dc9eb067d2aa44b278e1f346288fe, type: 3}
+  - id: Palette_05
+    displayName: 
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.992157, g: 0.847059, b: 0.207843, a: 1}
+    slotIcon: {fileID: 2800000, guid: 948159da0f3599047be41a7f4bb7bb40, type: 3}
+  - id: Palette_06
+    displayName: 
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.262745, g: 0.627451, b: 0.278431, a: 1}
+    slotIcon: {fileID: 2800000, guid: 1638ca11081ace44fbef872c93dabd4f, type: 3}
+  - id: Palette_07
+    displayName: 
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.117647, g: 0.533333, b: 0.898039, a: 1}
+    slotIcon: {fileID: 2800000, guid: 887ee305e903af24f91694be0be3bf4e, type: 3}
+  - id: Palette_08
+    displayName: 
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.670588, g: 0.278431, b: 0.737255, a: 1}
+    slotIcon: {fileID: 2800000, guid: 5da3912986f3c474796ba76bb9e267b8, type: 3}
+  - id: Palette_09
+    displayName: 
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.54902, g: 0.25098, b: 0.85098, a: 1}
+    slotIcon: {fileID: 2800000, guid: 78e4934c07b38d84e9e8d86d567e2a41, type: 3}
+  - id: Palette_10
+    displayName: Metals
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.898039, g: 0.223529, b: 0.207843, a: 1}
+    slotIcon: {fileID: 2800000, guid: 614e9764b370aa145903a25bf911126b, type: 3}
+  - id: Palette_11
+    displayName: WindAndFire
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.984314, g: 0.54902, b: 0, a: 1}
+    slotIcon: {fileID: 2800000, guid: 2e05828b19a68a54e98f7cf410e3b45c, type: 3}
+  - id: Palette_12
+    displayName: Tabs
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.992157, g: 0.847059, b: 0.207843, a: 1}
+    slotIcon: {fileID: 2800000, guid: c199e490091b0744abad8105e41e1aef, type: 3}
+  - id: Palette_13
+    displayName: Electricity
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.262745, g: 0.627451, b: 0.278431, a: 1}
+    slotIcon: {fileID: 2800000, guid: 10d9f042f6d251246ab564dba7a143cf, type: 3}
+  - id: Palette_14
+    displayName: Glass
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.117647, g: 0.533333, b: 0.898039, a: 1}
+    slotIcon: {fileID: 2800000, guid: d1b1a246fcce0d6429ca5624db713a89, type: 3}
+  - id: Palette_15
+    displayName: Particles
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.670588, g: 0.278431, b: 0.737255, a: 1}
+    slotIcon: {fileID: 2800000, guid: ebd8231202c2c6a47bc96aee74a46aed, type: 3}
+  - id: Palette_16
+    displayName: Rain
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.54902, g: 0.25098, b: 0.85098, a: 1}
+    slotIcon: {fileID: 2800000, guid: 9ab54686d98b69a4daf0029b8505dad1, type: 3}
+  - id: Palette_17
+    displayName: Exotic
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.898039, g: 0.223529, b: 0.207843, a: 1}
+    slotIcon: {fileID: 2800000, guid: 9fda4efbae9daf44bbf2480df40c1974, type: 3}
+  - id: Palette_18
+    displayName: Patterned Tapers
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.984314, g: 0.54902, b: 0, a: 1}
+    slotIcon: {fileID: 2800000, guid: 2668d927250fcc74eb24f4a71476dac9, type: 3}
+  - id: Palette_19
+    displayName: Patterned Tubes
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.992157, g: 0.847059, b: 0.207843, a: 1}
+    slotIcon: {fileID: 0}
+  - id: Palette_20
+    displayName: Patterned Comets
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.262745, g: 0.627451, b: 0.278431, a: 1}
+    slotIcon: {fileID: 2800000, guid: bc7e64cff8775654c9307b667bfa318e, type: 3}
+  - id: Palette_21
+    displayName: Patterned Strips
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.117647, g: 0.533333, b: 0.898039, a: 1}
+    slotIcon: {fileID: 2800000, guid: 27a9701c5cdee3f4d9d203cdb52099ba, type: 3}
+  - id: Palette_22
+    displayName: Hashes
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.670588, g: 0.278431, b: 0.737255, a: 1}
+    slotIcon: {fileID: 2800000, guid: 71c9e771b3f75414694c8cf2e23e0d5b, type: 3}
+  - id: Palette_23
+    displayName: 3dbrushes
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.54902, g: 0.25098, b: 0.85098, a: 1}
+    slotIcon: {fileID: 2800000, guid: 3e874bff596cf844aa07427661e73a6e, type: 3}
+  - id: Palette_24
+    displayName: Mutable Tapers
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.898039, g: 0.223529, b: 0.207843, a: 1}
+    slotIcon: {fileID: 2800000, guid: 2668d927250fcc74eb24f4a71476dac9, type: 3}
+  - id: Palette_25
+    displayName: Mutable Tubes
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.984314, g: 0.54902, b: 0, a: 1}
+    slotIcon: {fileID: 2800000, guid: ad3f54aeaf914b74ca9385951c5ce6e5, type: 3}
+  - id: Palette_26
+    displayName: Mutable Comets
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.992157, g: 0.847059, b: 0.207843, a: 1}
+    slotIcon: {fileID: 2800000, guid: bc7e64cff8775654c9307b667bfa318e, type: 3}
+  - id: Palette_27
+    displayName: Immutable Tapers
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.262745, g: 0.627451, b: 0.278431, a: 1}
+    slotIcon: {fileID: 0}
+  - id: Palette_28
+    displayName: Immutable Tubes
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.117647, g: 0.533333, b: 0.898039, a: 1}
+    slotIcon: {fileID: 2800000, guid: 72cabfe46a6a40144b386aa21e64d467, type: 3}
+  - id: Palette_29
+    displayName: Immutable Comets
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.670588, g: 0.278431, b: 0.737255, a: 1}
+    slotIcon: {fileID: 2800000, guid: 81668038caf5c8443aa9a83eb8669168, type: 3}
+  - id: Palette_30
+    displayName: Hypercolor
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.54902, g: 0.25098, b: 0.85098, a: 1}
+    slotIcon: {fileID: 2800000, guid: 9211ffae730034343ad4020ce7d4e800, type: 3}
+  - id: Palette_31
+    displayName: Exotic Hulls
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.898039, g: 0.223529, b: 0.207843, a: 1}
+    slotIcon: {fileID: 2800000, guid: 244f6a336d3dc4f4599c9893cd17cf2b, type: 3}
+  - id: Palette_32
+    displayName: Transparent Hulls
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.984314, g: 0.54902, b: 0, a: 1}
+    slotIcon: {fileID: 2800000, guid: 3b18a4432e324f74bb31656e44ea0ee8, type: 3}
+  - id: Palette_33
+    displayName: Hulls
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.992157, g: 0.847059, b: 0.207843, a: 1}
+    slotIcon: {fileID: 2800000, guid: 4cb799482d1fe224bb8c331aee85da96, type: 3}
+  - id: Palette_34
+    displayName: Highly Experimental
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.262745, g: 0.627451, b: 0.278431, a: 1}
+    slotIcon: {fileID: 0}
+  - id: Palette_35
+    displayName: Duplicate Brushes
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.117647, g: 0.533333, b: 0.898039, a: 1}
+    slotIcon: {fileID: 0}
+  - id: Palette_36
+    displayName: Black Square
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.670588, g: 0.278431, b: 0.737255, a: 1}
+    slotIcon: {fileID: 2800000, guid: 4e75403da5f22f24fa03a3519082c8d5, type: 3}
+  - id: Palette_37
+    displayName: Low Visibility
+    displayOrder: 0
+    overrideColor: 1
+    colorPicker: {r: 0.54902, g: 0.25098, b: 0.85098, a: 1}
+    slotIcon: {fileID: 2800000, guid: 81990a2d6fb868d49accbf96832dafdd, type: 3}
+  setBadgeScale: 1.15
+  brushCellUseAtlas: 0
+  brushCellIconSize: 1024
+  brushCellPhotoColor: {r: 1, g: 1, b: 1, a: 1}
+  brushCellPlateColor: {r: 0, g: 0, b: 0, a: 1}
+  brushCellStrokeGain: 0.75
+  brushCellPlateThreshold: 0.08

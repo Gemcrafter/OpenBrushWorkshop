@@ -1,0 +1,38 @@
+﻿[
+  {
+    "durableName": "Stars",
+    "description": "",
+    "guid": "0eb4db27-3f82-408d-b5a1-19ebd7d5b711",
+    "status": "OK"
+  },
+  {
+    "durableName": "LightWire",
+    "description": "",
+    "guid": "4391aaaa-df81-4396-9e33-31e4e4930b27",
+    "status": "OK"
+  },
+  {
+    "durableName": "WigglyGraphite",
+    "description": "",
+    "guid": "5347acf0-a8e2-47b6-8346-30c70719d763",
+    "status": "OK"
+  },
+  {
+    "durableName": "Rainbow",
+    "description": "",
+    "guid": "ad1ad437-76e2-450d-a23a-e17f8310b960",
+    "status": "OK"
+  },
+  {
+    "durableName": "DuctTape",
+    "description": "",
+    "guid": "d0262945-853c-4481-9cbd-88586bed93cb",
+    "status": "OK"
+  },
+  {
+    "durableName": "Fairy",
+    "description": "",
+    "guid": "d9cc5e99-ace1-4d12-96e0-4a7c18c99cfc",
+    "status": "OK"
+  }
+]

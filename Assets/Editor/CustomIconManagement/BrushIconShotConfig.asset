@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fd5a81ba54a55346a04768112a6ca51, type: 3}
+  m_Name: BrushIconShotConfig
+  m_EditorClassIdentifier: 
+  environmentGuid: 580b4529-ac50-4fe9-b8d2-635765a25888
+  environmentName: VideoBlack
+  useEnvironmentPlate: 0
+  captureSize: 2048
+  shotColorName: DefaultBlue
+  shotColor: {r: 0.2, g: 0.2, b: 0.9019608, a: 1}
+  presets:
+  - commonName: Blue
+    color: {r: 0.118, g: 0.533, b: 0.898, a: 1}
+  - commonName: White
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - commonName: Red
+    color: {r: 0.898, g: 0.224, b: 0.208, a: 1}
+  - commonName: Green
+    color: {r: 0.263, g: 0.627, b: 0.278, a: 1}
+  - commonName: Yellow
+    color: {r: 0.992, g: 0.847, b: 0.208, a: 1}
+  - commonName: Magenta
+    color: {r: 0.671, g: 0.278, b: 0.737, a: 1}
+  - commonName: HotPink
+    color: {r: 1, g: 0, b: 0.6072798, a: 1}
+  - commonName: RedOrange
+    color: {r: 1, g: 0.2370995, b: 0, a: 1}
+  - commonName: DefaultBlue
+    color: {r: 0.2, g: 0.2, b: 0.9019608, a: 1}
