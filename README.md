@@ -1,7 +1,13 @@
 # OpenBrushWorkshop
 
 A personal variant of Open Brush, using Unity 2022.3.62f2
-This is a personal side project of mine 
+This is a side project of mine. 
+This is not directly forked from the original repo
+I will probabably redo the entire thing so it is forked and not LFS dependent
+
+# Installing
+This uses LFS
+So the download button won't work. Clone the repo instead if you want to check it out
 
 ## About
 Several experimental features
