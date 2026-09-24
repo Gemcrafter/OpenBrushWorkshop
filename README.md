@@ -20,6 +20,10 @@ Various other modifications
 Work in progress. Developed and tested via Unity Editor + Play Mode with a headset. Standalone builds have not been tested.
 Only tested in pc connected headset mode.  Standalone mode has not been tested and some features explicitly require a connected pc.
 
+## Documentation
+The documentation folder contains image documentation for the mirror controls panel.
+You may want to put this in your Open Brush/MediaLibrary/Images folder for in game reference
+
 ## Requirements
 
 - Unity 2022.3.62f2
