@@ -1140,9 +1140,16 @@ namespace TiltBrush
         {
             if (!m_LiveMirrorTintEnabled)
             {
+                Debug.LogError(
+                    "[SymmetryWidget.ApplyLiveMirrorTint] skip enabled=False");
                 return;
             }
             Color tint = m_LiveMirrorTint;
+            Debug.LogError(
+                "[SymmetryWidget.ApplyLiveMirrorTint] apply rgb=(" +
+                tint.r.ToString("0.00") + "," +
+                tint.g.ToString("0.00") + "," +
+                tint.b.ToString("0.00") + ")");
             if (m_FrontBackMesh != null)
             {
                 ApplyTintToRenderer(m_FrontBackMesh, tint);
@@ -1210,11 +1217,17 @@ namespace TiltBrush
                 // Orientation buttons + OnUserEndInteracting apply explicit reorient.
 
                 TrTransform xf_SS = App.Scene.AsScene[transform];
+                Color tint = m_LiveMirrorTint;
                 Debug.LogError(
                     "[SymmetryWidget.Show] MIRROR_SPAWN: Show scene pos=" + xf_SS.translation +
                     " euler=" + xf_SS.rotation.eulerAngles +
                     " scale=" + xf_SS.scale +
-                    " world pos=" + transform.position);
+                    " world pos=" + transform.position +
+                    " tintEnabled=" + m_LiveMirrorTintEnabled +
+                    " rgb=(" +
+                    tint.r.ToString("0.00") + "," +
+                    tint.g.ToString("0.00") + "," +
+                    tint.b.ToString("0.00") + ")");
             }
 
             RefreshVisibleSlotGuides();
@@ -3173,16 +3186,18 @@ namespace TiltBrush
             {
                 return;
             }
-            if (m_SlotGuidePool == null || m_SlotGuidePool[index] == null)
+            if (m_SlotGuideActive != null && index < m_SlotGuideActive.Length)
             {
-                if (m_SlotGuideActive != null && index < m_SlotGuideActive.Length)
-                {
-                    m_SlotGuideActive[index] = false;
-                }
+                m_SlotGuideActive[index] = false;
+            }
+            if (m_SlotGuidePool == null || index >= m_SlotGuidePool.Length)
+            {
                 return;
             }
-            m_SlotGuidePool[index].SetActive(false);
-            m_SlotGuideActive[index] = false;
+            if (m_SlotGuidePool[index] != null)
+            {
+                m_SlotGuidePool[index].SetActive(false);
+            }
         }
 
         public void HideAllSlotGuides()
@@ -3234,6 +3249,13 @@ namespace TiltBrush
         {
             int toIndex = m_MoveToMirrorToIndex;
             bool toValid = PeekMoveToMirrorToValid();
+
+            // No pool yet (Show All never pressed): nothing to hide.
+            // Do not index a missing/short pool from the Hyperspace tick.
+            if (!SlotGuidePoolIsAlive() && !(toValid && m_MoveToMirrorModeActive))
+            {
+                return;
+            }
 
             // Drop leftover To marks. Changing To used to Show() the new
             // index and leave the previous index painted Hyperspace-gold.

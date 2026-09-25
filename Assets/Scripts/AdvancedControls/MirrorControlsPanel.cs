@@ -77,11 +77,17 @@ namespace TiltBrush
 
         // DECLARATIONS
         bool m_MirrorSaveSlotClearMode;
+        string m_LastLoggedAxisDescX;
+        string m_LastLoggedAxisDescZ;
+        Quaternion m_LastAxisLabelSceneRot;
+        bool m_AxisLabelSceneRotValid;
+        const float kAxisLabelSceneRotDegrees = 2.0f;
 
 
         override protected void OnEnablePanel()
         {
             base.OnEnablePanel();
+            m_AxisLabelSceneRotValid = false;
             RefreshMirrorControlsPanelTints();
             RefreshAxisLockButtonDescriptions();
             RefreshOrientationButtonDescriptions();
@@ -394,10 +400,17 @@ namespace TiltBrush
             RefreshMirrorControlsPanelTints();
         }
 
-        /// Hover text for scene X/Z only: Left-Right vs Forward-Back from the user's view.
-        /// Buttons still lock scene X and Z; Y stays Up-Down.
+        /// Hover text for scene X/Z only: Left-Right vs Forward-Back from a
+        /// snapshot of the user vs scene. Do not retitle on headset look.
+        /// Retitle when scene rotation changes (world turn). Buttons still
+        /// lock scene X and Z; Y stays Up-Down.
         void RefreshAxisLockButtonDescriptions()
         {
+            if (!ShouldRefreshAxisLabelsForSceneRotation())
+            {
+                return;
+            }
+
             bool xIsSideways = GetSceneXIsSidewaysForUser();
             string descX = xIsSideways ? "Lateral" : "Forward-Back";
             string descZ = xIsSideways ? "Forward-Back" : "Lateral";
@@ -419,10 +432,42 @@ namespace TiltBrush
                     toggles[i].SetDescriptionText(descZ);
                 }
             }
+
+            if (descX != m_LastLoggedAxisDescX || descZ != m_LastLoggedAxisDescZ)
+            {
+                m_LastLoggedAxisDescX = descX;
+                m_LastLoggedAxisDescZ = descZ;
+                SymmetryWidget widget = FindSymmetryWidget();
+                string lockName = widget != null ? widget.CurrentAxisLock.ToString() : "none";
+                Debug.LogError(
+                    "[MirrorControlsPanel] AXIS_LABEL xIsSideways=" + xIsSideways +
+                    " X=" + descX + " Z=" + descZ + " lock=" + lockName);
+            }
         }
 
 
 
+
+        bool ShouldRefreshAxisLabelsForSceneRotation()
+        {
+            if (App.Scene == null)
+            {
+                return !m_AxisLabelSceneRotValid;
+            }
+            Quaternion sceneRot = App.Scene.Pose.rotation;
+            if (!m_AxisLabelSceneRotValid)
+            {
+                m_LastAxisLabelSceneRot = sceneRot;
+                m_AxisLabelSceneRotValid = true;
+                return true;
+            }
+            if (Quaternion.Angle(sceneRot, m_LastAxisLabelSceneRot) < kAxisLabelSceneRotDegrees)
+            {
+                return false;
+            }
+            m_LastAxisLabelSceneRot = sceneRot;
+            return true;
+        }
 
         /// True when scene X is the user's lateral axis (scene Z more aligned with head forward).
         /// False when scene X is more forward/back for the user (labels should swap).
@@ -767,10 +812,21 @@ namespace TiltBrush
                 }
                 if (name == "TeleportToActive")
                 {
-                    active = widget != null && widget.PeekTeleportShouldLight();
-                    ForceMirrorControlsPanelButtonTint(
-                        toggles[i],
-                        active ? MirrorControlsMoveToMirrorToTint : MirrorControlsInactiveTint);
+                    // Dest gold / live blue / empty grey. Same colors as the
+                    // dest diamond. Hover text is prefab Description.
+                    Color teleportTint = MirrorControlsInactiveTint;
+                    if (widget != null && widget.PeekTeleportDestValid())
+                    {
+                        if (widget.IsMirrorSaveSlotMatchingCurrent(widget.TeleportDestIndex))
+                        {
+                            teleportTint = MirrorControlsCurrentSlotTint;
+                        }
+                        else
+                        {
+                            teleportTint = MirrorControlsMoveToMirrorToTint;
+                        }
+                    }
+                    ForceMirrorControlsPanelButtonTint(toggles[i], teleportTint);
                     continue;
                 }
                 if (name == "MakeTargetSlotActive")
