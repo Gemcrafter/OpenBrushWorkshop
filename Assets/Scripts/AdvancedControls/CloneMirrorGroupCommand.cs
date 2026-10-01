@@ -162,9 +162,13 @@ namespace TiltBrush
                 " to=" + toIndex +
                 " fromPos=" + from_SS.translation +
                 " toPos=" + to_SS.translation +
+                " fromEuler=" + from_SS.rotation.eulerAngles +
+                " toEuler=" + to_SS.rotation.eulerAngles +
+                " deltaEuler=" + delta_SS.rotation.eulerAngles +
                 " strokes=" + m_CopiedStrokes.Count +
                 " widgets=" + m_CopiedWidgets.Count +
-                " valid=" + m_Valid);
+                " valid=" + m_Valid +
+                " note=slotDeltaNotMultiMirrorAngle");
         }
 
         public override bool NeedsSave
@@ -271,4 +275,5 @@ namespace TiltBrush
             }
         }
     }
+
 }

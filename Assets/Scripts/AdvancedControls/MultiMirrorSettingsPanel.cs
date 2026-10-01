@@ -41,10 +41,12 @@ namespace TiltBrush
         bool m_SettingsInited;
         bool m_LoggedCreate;
         int m_LastRayLogFrame;
+        string m_LastLoggedHit;
         UIComponentManager m_SettingsUiManager;
         string m_CurrentPage = "Point Symmetry Controls";
         PointerManager.SymmetryMode m_LastTintMode = PointerManager.SymmetryMode.None;
         bool m_LoggedFlavorNames;
+        string m_LastLoggedFlavor;
 
         override protected void OnEnablePanel()
         {
@@ -103,18 +105,29 @@ namespace TiltBrush
 
             RefreshModeTint(forceLog: false);
 
-            if (Time.frameCount - m_LastRayLogFrame < 30)
+            if (Time.frameCount - m_LastRayLogFrame < 15)
             {
                 return;
             }
 
             m_LastRayLogFrame = Time.frameCount;
             string hitName = RaycastChildButtonName();
+            string page = m_CurrentPage;
+            string family = CurrentFamilyKey();
+            string group = CurrentWallpaperKey();
+            string key = hitName + "|" + page + "|" + family + "|" + group;
+            if (key == m_LastLoggedHit)
+            {
+                return;
+            }
+
+            m_LastLoggedHit = key;
             Debug.LogError(
-                "[MultiMirrorSettingsPanel.OnUpdatePanel] LAUNCH: hit=" + vHitPoint
-                + " child=" + hitName
-                + " mode=" + CurrentModeName()
-                + " settingsMgr=" + SettingsManagerName());
+                "[MultiMirrorSettingsPanel.OnUpdatePanel] LAUNCH: child=" + hitName
+                + " page=" + page
+                + " family=" + family
+                + " group=" + group
+                + " mode=" + CurrentModeName());
         }
 
         override public void ForceUpdatePanelVisuals()
@@ -312,6 +325,16 @@ namespace TiltBrush
                 || PointerManager.m_Instance.m_CustomSymmetryType
                 == PointerManager.CustomSymmetryType.Polyhedra;
             string want = point ? CurrentFamilyKey() : CurrentWallpaperKey();
+
+            if (want != m_LastLoggedFlavor)
+            {
+                m_LastLoggedFlavor = want;
+                Debug.LogError(
+                    "[MultiMirrorSettingsPanel.TintFlavorButtons] LAUNCH: selected family/group="
+                    + want
+                    + " point=" + point
+                    + " page=" + m_CurrentPage);
+            }
 
             if (!m_LoggedFlavorNames)
             {
@@ -1028,5 +1051,6 @@ namespace TiltBrush
             gameObject.SetActive(false);
         }
     }
+
 
 }
