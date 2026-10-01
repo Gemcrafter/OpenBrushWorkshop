@@ -82,6 +82,7 @@ namespace TiltBrush
             bool deselect = false, bool initial = false, bool checkForClearedSelection = false,
             bool isGrabbingGroup = false, bool isEndGrabbingGroup = false,
             CanvasScript targetCanvas = null,
+            bool includeGroupedWidgets = true,
             BaseCommand parent = null)
             : base(parent)
         {
@@ -130,9 +131,12 @@ namespace TiltBrush
 
             // Get the grouped widgets.
             var widgetsGrouped = new HashSet<GrabWidget>();
-            foreach (var group in selectedGroups)
+            if (includeGroupedWidgets)
             {
-                widgetsGrouped.UnionWith(SelectionManager.m_Instance.WidgetsInGroup(group));
+                foreach (var group in selectedGroups)
+                {
+                    widgetsGrouped.UnionWith(SelectionManager.m_Instance.WidgetsInGroup(group));
+                }
             }
 
             m_Strokes = new List<Stroke>();

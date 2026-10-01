@@ -983,6 +983,16 @@ namespace TiltBrush
                     unselectedWidgets, m_SelectedWidgets));
         }
 
+        public void InvertStrokeSelection(CanvasScript canvas)
+        {
+            List<Stroke> unselectedStrokes =
+                SketchMemoryScript.m_Instance.GetAllUnselectedActiveStrokes(canvas);
+
+            SketchMemoryScript.m_Instance.PerformAndRecordCommand(
+                new InvertSelectionCommand(unselectedStrokes, m_SelectedStrokes,
+                    widgetsOn: null, widgetsOff: null));
+        }
+
         public void FlipSelection()
         {
             // Flip the selection.
@@ -1019,6 +1029,18 @@ namespace TiltBrush
                 new SelectCommand(unselectedStrokes, unselectedWidgets,
                     SelectionManager.m_Instance.SelectionTransform,
                     deselect: false, initial: false));
+        }
+
+        public void SelectAllStrokes(CanvasScript canvas)
+        {
+            List<Stroke> unselectedStrokes =
+                SketchMemoryScript.m_Instance.GetAllUnselectedActiveStrokes(canvas);
+
+            SketchMemoryScript.m_Instance.PerformAndRecordCommand(
+                new SelectCommand(unselectedStrokes, widgets: null,
+                    SelectionManager.m_Instance.SelectionTransform,
+                    deselect: false, initial: false,
+                    includeGroupedWidgets: false));
         }
 
         /// Groups all the selected strokes into a single new group unless they are already in a single
