@@ -99,6 +99,7 @@ namespace TiltBrush
             AdvancedPanelsToggle,
             Music,
             Duplicate,
+            MirrorCopySelection,
             ToggleGroupStrokesAndWidgets,
             SaveModel,
             ViewIcosaHomePage,
@@ -201,6 +202,7 @@ namespace TiltBrush
             MergeBrushStrokes = 10000,
             RepaintOptions = 11500,
             OpenNumericInputPopup = 12000,
+            ClearSelection = 14000,
             SelectAllStrokes = 13000,
             InvertStrokeSelection = 13001
         }
@@ -4537,7 +4539,14 @@ namespace TiltBrush
                         var index = iParam1;
                         var sketchSetType = (SketchSetType)iParam2;
                         SketchSet sketchSet = SketchCatalog.m_Instance.GetSet(sketchSetType);
-                        SceneFileInfo rInfo = sketchSet.GetSketchSceneFileInfo(index);
+                        SceneFileInfo rInfo = sketchSet != null
+                            ? sketchSet.GetSketchSceneFileInfo(index)
+                            : null;
+                        Debug.LogError(
+                            "[SketchControlsScript.IssueGlobalCommand] LOADCMD: Load index=" +
+                            index + " set=" + sketchSetType +
+                            " rInfo=" + (rInfo != null) +
+                            " available=" + (rInfo != null && rInfo.Available));
                         if (rInfo != null && rInfo.Available)
                         {
                             LoadSketch(rInfo);
@@ -4954,6 +4963,12 @@ namespace TiltBrush
                         EatToolScaleInput();
                         break;
                     }
+                case GlobalCommands.MirrorCopySelection:
+                    {
+                        ClipboardManager.Instance.MirrorCopySelection();
+                        EatToolScaleInput();
+                        break;
+                    }
                 case GlobalCommands.AdvancedPanelsToggle:
                     m_PanelManager.ToggleAdvancedPanels();
                     // If we're now in basic mode, ensure we don't have advanced abilities.
@@ -5028,6 +5043,9 @@ namespace TiltBrush
                     SelectionManager.m_Instance.SelectAll(App.ActiveCanvas);
                     EatGazeObjectInput();
                     break;
+                case GlobalCommands.ClearSelection:
+                    SelectionManager.m_Instance.ClearActiveSelection();
+                    break;
                 case GlobalCommands.SelectAllStrokes:
                     SketchSurfacePanel.m_Instance.EnableSpecificTool(BaseTool.ToolType.SelectionTool);
                     SelectionManager.m_Instance.SelectAllStrokes(App.ActiveCanvas);
@@ -5065,6 +5083,10 @@ namespace TiltBrush
                         var index = iParam1;
                         var sketchSetType = (SketchSetType)iParam2;
                         bool loadSketch = true;
+                        Debug.LogError(
+                            "[SketchControlsScript.IssueGlobalCommand] LOADCMD: LoadConfirmComplex index=" +
+                            index + " set=" + sketchSetType +
+                            " sketchbookActive=" + m_PanelManager.SketchbookActive());
 
                         // If the sketchbook is active, we may want to show a popup instead of load.
                         if (m_PanelManager.SketchbookActive())
@@ -5093,6 +5115,9 @@ namespace TiltBrush
                             }
                         }
 
+                        Debug.LogError(
+                            "[SketchControlsScript.IssueGlobalCommand] LOADCMD: LoadConfirmComplex loadSketch=" +
+                            loadSketch);
                         if (loadSketch)
                         {
                             IssueGlobalCommand(GlobalCommands.Load, iParam1, iParam2, null);
@@ -5102,12 +5127,29 @@ namespace TiltBrush
                 case GlobalCommands.LoadConfirmUnsaved:
                     {
                         BasePanel sketchBook = m_PanelManager.GetSketchBookPanel();
-                        if ((sketchBook != null) && SketchMemoryScript.m_Instance.IsMemoryDirty())
+                        bool dirty = SketchMemoryScript.m_Instance != null &&
+                            SketchMemoryScript.m_Instance.IsMemoryDirty();
+                        bool transitioning = SceneSettings.m_Instance != null &&
+                            SceneSettings.m_Instance.IsTransitioning;
+                        bool envChanged = SceneSettings.m_Instance != null &&
+                            SceneSettings.m_Instance.EnvironmentChanged;
+                        Debug.LogError(
+                            "[SketchControlsScript.IssueGlobalCommand] LOADCMD: LoadConfirmUnsaved" +
+                            " sketchBook=" + (sketchBook != null) +
+                            " dirty=" + dirty +
+                            " transitioning=" + transitioning +
+                            " envChanged=" + envChanged +
+                            " index=" + iParam1);
+                        if ((sketchBook != null) && dirty)
                         {
+                            Debug.LogError(
+                                "[SketchControlsScript.IssueGlobalCommand] LOADCMD: CreatePopUp LoadWaitOnDownload (dirty, waiting)");
                             sketchBook.CreatePopUp(GlobalCommands.LoadWaitOnDownload, iParam1, iParam2, null);
                         }
                         else
                         {
+                            Debug.LogError(
+                                "[SketchControlsScript.IssueGlobalCommand] LOADCMD: skip popup, chain LoadWaitOnDownload");
                             IssueGlobalCommand(GlobalCommands.LoadWaitOnDownload, iParam1, iParam2, null);
                         }
                     }
@@ -5115,6 +5157,9 @@ namespace TiltBrush
                 case GlobalCommands.LoadWaitOnDownload:
                     {
                         var download = false;
+                        Debug.LogError(
+                            "[SketchControlsScript.IssueGlobalCommand] LOADCMD: LoadWaitOnDownload index=" +
+                            iParam1 + " set=" + iParam2);
                         if (iParam2 == (int)SketchSetType.Drive
                             || iParam2 == (int)SketchSetType.Curated
                             || iParam2 == (int)SketchSetType.Liked)
@@ -5177,7 +5222,15 @@ namespace TiltBrush
                     m_WidgetManager.CameraPathsVisible = !m_WidgetManager.CameraPathsVisible;
                     break;
                 case GlobalCommands.ToggleCameraPathPreview:
-                    m_WidgetManager.FollowingPath = !m_WidgetManager.FollowingPath;
+                    if (!m_WidgetManager.FollowingPath)
+                    {
+                        m_WidgetManager.CameraPathsVisible = true;
+                        m_WidgetManager.FollowingPath = true;
+                    }
+                    else
+                    {
+                        m_WidgetManager.FollowingPath = false;
+                    }
                     break;
                 case GlobalCommands.DeleteCameraPath:
                     {
@@ -5363,6 +5416,10 @@ namespace TiltBrush
             SaveLoadScript.m_Instance.ResetLastFilename();
             SelectionManager.m_Instance.RemoveFromSelection(false);
             PointerManager.m_Instance.ResetSymmetryToHome();
+            if (PointerManager.m_Instance.SymmetryWidget != null)
+            {
+                PointerManager.m_Instance.SymmetryWidget.ClearMirrorSaveSlotsForNewSketch();
+            }
             PointerManager.m_Instance.FinalizeLine(false, true);
             App.Scene.ResetLayers(notify: true);
             ApiManager.Instance.ResetBrushTransform();
@@ -5467,6 +5524,11 @@ namespace TiltBrush
                         m_WidgetManager.ImageWidgets.Any(w => w.gameObject.activeSelf);
                 case GlobalCommands.ResetAllPanels: return m_PanelManager.PanelsHaveBeenCustomized();
                 case GlobalCommands.Duplicate: return ClipboardManager.Instance.CanCopy;
+                case GlobalCommands.MirrorCopySelection:
+                    return ClipboardManager.Instance.CanCopy &&
+                        PointerManager.m_Instance != null &&
+                        PointerManager.m_Instance.CurrentSymmetryMode ==
+                            PointerManager.SymmetryMode.SinglePlane;
                 case GlobalCommands.ToggleGroupStrokesAndWidgets: return SelectionManager.m_Instance.SelectionCanBeGrouped;
                 case GlobalCommands.SaveModel:
                 case GlobalCommands.SaveSelected:
@@ -5476,13 +5538,20 @@ namespace TiltBrush
                         PointerManager.SymmetryMode.None;
                 case GlobalCommands.InvertSelection:
                 case GlobalCommands.InvertStrokeSelection:
-                case GlobalCommands.FlipSelection:
                     return SelectionManager.m_Instance.HasSelection;
+                case GlobalCommands.FlipSelection:
+                    return SelectionManager.m_Instance.HasSelection &&
+                        PointerManager.m_Instance != null &&
+                        PointerManager.m_Instance.SymmetryWidget != null &&
+                        PointerManager.m_Instance.CurrentSymmetryMode !=
+                            PointerManager.SymmetryMode.None;
                 case GlobalCommands.SelectAll:
                     return SketchMemoryScript.m_Instance.HasVisibleObjects() ||
                         m_WidgetManager.HasSelectableWidgets();
                 case GlobalCommands.SelectAllStrokes:
                     return SketchMemoryScript.m_Instance.HasVisibleObjects();
+                case GlobalCommands.ClearSelection:
+                    return SelectionManager.m_Instance.HasSelection;
                 case GlobalCommands.UnloadReferenceImageCatalog:
                     return ReferenceImageCatalog.m_Instance.AnyImageValid();
                 case GlobalCommands.ToggleCameraPathPreview:
@@ -5495,7 +5564,6 @@ namespace TiltBrush
                     return App.GoogleIdentity.LoggedIn;
                 case GlobalCommands.RecordCameraPath:
                     return m_WidgetManager.CameraPathsVisible;
-
                 case GlobalCommands.AdvancedPanelsToggle:
                     return !(MultiplayerManager.m_Instance.State == ConnectionState.IN_ROOM);
                 case GlobalCommands.MultiplayerConnect:
@@ -5538,6 +5606,7 @@ namespace TiltBrush
             return true;
         }
 
+
         public bool SketchHasChanges()
         {
             if (SceneSettings.m_Instance.IsTransitioning) { return false; }
@@ -5552,10 +5621,213 @@ namespace TiltBrush
                 m_WidgetManager.AnyCameraPathWidgetsActive;
         }
 
+        int m_LastLaunchToggleFrame = -1;
+        BasePanel.PanelType m_LastLaunchToggleType = BasePanel.PanelType.Sketchbook;
+
         public void OpenPanelOfType(BasePanel.PanelType type, TrTransform trSpawnXf, bool forced = false)
         {
+            // Advanced Launch panel buttons toggle. GetActivePanelByType is gaze
+            // focus and is null while the user is pointing at the launcher.
+            if (type == BasePanel.PanelType.MultiMirrorSettings)
+            {
+                MultiMirrorSettingsPanel[] existing =
+                    FindObjectsOfType<MultiMirrorSettingsPanel>();
+                bool anyOpen = false;
+                for (int i = 0; i < existing.Length; ++i)
+                {
+                    if (existing[i] == null)
+                    {
+                        continue;
+                    }
+
+                    PanelWidget widget = existing[i].GetComponent<PanelWidget>();
+                    bool showing = widget != null && widget.Showing;
+                    bool used = existing[i].PanelIsUsed()
+                        && existing[i].gameObject.activeInHierarchy;
+                    Debug.LogError(
+                        "[SketchControlsScript.OpenPanelOfType] LAUNCH: settings["
+                        + i + "] active=" + existing[i].gameObject.activeInHierarchy
+                        + " showing=" + showing
+                        + " used=" + used
+                        + " name=" + existing[i].gameObject.name);
+                    if (showing || used)
+                    {
+                        anyOpen = true;
+                    }
+                }
+
+                bool modeOn = PointerManager.m_Instance != null
+                    && PointerManager.m_Instance.CurrentSymmetryMode
+                    == PointerManager.SymmetryMode.MultiMirror;
+
+                if (anyOpen || modeOn)
+                {
+                    MultiMirrorSettingsPanel.CloseAllOpenInstances();
+                    if (PointerManager.m_Instance != null
+                        && PointerManager.m_Instance.CurrentSymmetryMode
+                        == PointerManager.SymmetryMode.MultiMirror)
+                    {
+                        IssueGlobalCommand(GlobalCommands.MultiMirror);
+                    }
+
+                    Debug.LogError(
+                        "[SketchControlsScript.OpenPanelOfType] LAUNCH: closed settings");
+                    EatGazeObjectInput();
+                    return;
+                }
+            }
+
+            if (type == BasePanel.PanelType.MirrorControls)
+            {
+                if (m_LastLaunchToggleFrame == Time.frameCount
+                    && m_LastLaunchToggleType == type)
+                {
+                    EatGazeObjectInput();
+                    return;
+                }
+
+                m_LastLaunchToggleFrame = Time.frameCount;
+                m_LastLaunchToggleType = type;
+
+                if (AdvancedLaunchPanel.IsLaunchPanelOpen(type))
+                {
+                    MirrorControlsPanel.CloseAllOpenInstances();
+                    Debug.LogError(
+                        "[SketchControlsScript.OpenPanelOfType] LAUNCH: closed MirrorControls");
+                    EatGazeObjectInput();
+                    return;
+                }
+
+                m_PanelManager.OpenPanel(
+                    type, AdvancedLaunchPanel.GetLaunchSpawnXf(type), forced);
+                AdvancedLaunchPanel.MirrorControlsLaunchOpen = true;
+                Debug.LogError(
+                    "[SketchControlsScript.OpenPanelOfType] LAUNCH: opened MirrorControls");
+                EatGazeObjectInput();
+                return;
+            }
+
+            if (type == BasePanel.PanelType.BrushCuration)
+            {
+                if (m_LastLaunchToggleFrame == Time.frameCount
+                    && m_LastLaunchToggleType == type)
+                {
+                    EatGazeObjectInput();
+                    return;
+                }
+
+                m_LastLaunchToggleFrame = Time.frameCount;
+                m_LastLaunchToggleType = type;
+
+                if (AdvancedLaunchPanel.IsLaunchPanelOpen(type))
+                {
+                    BrushCurationPanel.CloseAllOpenInstances();
+                    Debug.LogError(
+                        "[SketchControlsScript.OpenPanelOfType] LAUNCH: closed BrushCuration");
+                    EatGazeObjectInput();
+                    return;
+                }
+
+                m_PanelManager.OpenPanel(
+                    type, AdvancedLaunchPanel.GetLaunchSpawnXf(type), forced);
+                AdvancedLaunchPanel.BrushCurationLaunchOpen = true;
+                Debug.LogError(
+                    "[SketchControlsScript.OpenPanelOfType] LAUNCH: opened BrushCuration");
+                EatGazeObjectInput();
+                return;
+            }
+
+            if (IsAdvancedLaunchTogglePanel(type) && TryDismissShowingPanel(type))
+            {
+                EatGazeObjectInput();
+                return;
+            }
+
+            if (type == BasePanel.PanelType.MultiMirrorSettings)
+            {
+                Debug.LogError(
+                    "[SketchControlsScript.OpenPanelOfType] LAUNCH: no showing settings, opening");
+            }
+
+            if (type == BasePanel.PanelType.MultiMirrorSettings)
+            {
+                trSpawnXf = AdvancedLaunchPanel.GetLaunchSpawnXf(type);
+            }
+
             m_PanelManager.OpenPanel(type, trSpawnXf, forced);
             EatGazeObjectInput();
+        }
+
+        static bool IsAdvancedLaunchTogglePanel(BasePanel.PanelType type)
+        {
+            return type == BasePanel.PanelType.MultiMirrorSettings
+                || type == BasePanel.PanelType.MirrorControls
+                || type == BasePanel.PanelType.BrushCuration;
+        }
+
+        bool TryDismissShowingPanel(BasePanel.PanelType type)
+        {
+            BasePanel panel = FindShowingPanel(type);
+            if (panel == null)
+            {
+                return false;
+            }
+
+            MultiMirrorSettingsPanel multi = panel as MultiMirrorSettingsPanel;
+            if (multi != null)
+            {
+                multi.ClosePanel();
+                if (PointerManager.m_Instance != null
+                    && PointerManager.m_Instance.CurrentSymmetryMode
+                    == PointerManager.SymmetryMode.MultiMirror)
+                {
+                    IssueGlobalCommand(GlobalCommands.MultiMirror);
+                }
+            }
+            else if (panel is MirrorControlsPanel)
+            {
+                ((MirrorControlsPanel)panel).ClosePanel();
+            }
+            else if (panel is BrushCurationPanel)
+            {
+                ((BrushCurationPanel)panel).ClosePanel();
+            }
+            else
+            {
+                panel.DismissThisPanel();
+            }
+
+            Debug.LogError(
+                "[SketchControlsScript.TryDismissShowingPanel] LAUNCH: closed " + type);
+            return true;
+        }
+
+        static BasePanel FindShowingPanel(BasePanel.PanelType type)
+        {
+            // Two map rows can CreatePanel the same type. GetPanelByType returns
+            // the first, which may be the hidden Init clone.
+            BasePanel[] panels = FindObjectsOfType<BasePanel>();
+            for (int i = 0; i < panels.Length; ++i)
+            {
+                BasePanel panel = panels[i];
+                if (panel == null || panel.Type != type)
+                {
+                    continue;
+                }
+
+                PanelWidget widget = panel.GetComponent<PanelWidget>();
+                if (widget != null && widget.Showing)
+                {
+                    return panel;
+                }
+
+                if (widget == null && panel.PanelIsUsed() && panel.gameObject.activeInHierarchy)
+                {
+                    return panel;
+                }
+            }
+
+            return null;
         }
 
         public void RestoreFloatingPanels()
@@ -5678,5 +5950,7 @@ namespace TiltBrush
             }
         }
     }
+
+
 
 } // namespace TiltBrush

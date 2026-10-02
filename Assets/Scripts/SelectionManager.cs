@@ -995,20 +995,33 @@ namespace TiltBrush
 
         public void FlipSelection()
         {
-            // Flip the selection.
+            // Flip the selection in place across the live widget plane.
+            // Does not run when the mirror is off. One plane, not every slot.
             TrTransform selectionFromWorldSpace =
                 TrTransform.FromTransform(App.Scene.SelectionCanvas.transform).inverse;
 
-            Plane flipPlaneInSelectionSpace = new Plane(
-                selectionFromWorldSpace * m_SelectionWidget.transform.position,
-                selectionFromWorldSpace * ViewpointScript.Head.position,
-                selectionFromWorldSpace * (ViewpointScript.Head.position + Vector3.up));
-#if false
-    // useful for precise testing
-    if (PointerManager.m_Instance.SymmetryPlane_RS is Plane plane_RS) {
-      flipPlaneInSelectionSpace = App.Scene.SelectionCanvas.Pose.inverse * plane_RS;
-    }
-#endif
+            PointerManager pm = PointerManager.m_Instance;
+            bool mirrorOn = pm != null
+                && pm.SymmetryWidget != null
+                && pm.CurrentSymmetryMode != PointerManager.SymmetryMode.None;
+            if (!mirrorOn)
+            {
+                Debug.LogError(
+                    "[SelectionManager.FlipSelection] skip mirrorOff mode=" +
+                    (pm != null ? pm.CurrentSymmetryMode.ToString() : "none"));
+                return;
+            }
+
+            Plane plane_GS = pm.SymmetryWidget.ReflectionPlane;
+            Vector3 normal_CS = selectionFromWorldSpace.rotation * plane_GS.normal;
+            Vector3 point_CS = selectionFromWorldSpace * plane_GS.ClosestPointOnPlane(
+                pm.SymmetryWidget.transform.position);
+            Plane flipPlaneInSelectionSpace = new Plane(normal_CS.normalized, point_CS);
+
+            Debug.LogError(
+                "[SelectionManager.FlipSelection] plane=mirror n=" +
+                flipPlaneInSelectionSpace.normal +
+                " mode=" + pm.CurrentSymmetryMode);
 
             SketchMemoryScript.m_Instance.PerformAndRecordCommand(
                 new FlipSelectionCommand(m_SelectedStrokes, m_SelectedWidgets, flipPlaneInSelectionSpace));
