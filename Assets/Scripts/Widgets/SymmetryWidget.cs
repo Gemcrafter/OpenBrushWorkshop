@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
@@ -97,7 +98,7 @@ namespace TiltBrush
         [Tooltip("Default facing for the live glass (Inspector and in-game orientation buttons).")]
         [SerializeField]
         private PreferredOrientation m_PreferredOrientation =
-            PreferredOrientation.VerticalForward;
+            PreferredOrientation.HorizontalForward;
 
         [SerializeField] private float m_JumpToUserControllerOffsetDistance;
         [SerializeField] private float m_JumpToUserControllerYOffset;
@@ -136,6 +137,10 @@ namespace TiltBrush
             FreeMovement = 3
         }
 
+        [Tooltip("Glass grab only. Default slide. None = free. Z = forward-back. All = no slide. Not the selection slide.")]
+        [FormerlySerializedAs("m_AxisLock")]
+        [SerializeField] private MirrorSlideDefault m_MirrorSlideDefault = MirrorSlideDefault.None;
+
         [Tooltip("Default selection slide after load or new sketch. Front-Back Only = toward/away. Up-Down Only = vertical on the glass. Allow Either = both. Free Movement = no constraint.")]
         [SerializeField]
         SelectionSlideDefault m_SelectionSlideDefault =
@@ -147,7 +152,7 @@ namespace TiltBrush
         bool m_WasFlyToolLastTick;
 
 
-        public enum AxisLock
+        public enum MirrorSlideDefault
         {
             None = 0,
             X = 1,   // Left-Right
@@ -156,15 +161,12 @@ namespace TiltBrush
             All = 4  // No translation
         }
 
-        [Tooltip("Glass grab only. Limit live-mirror slide to one world axis (or All = no slide). Not selection Plane/Tunnel Lock.")]
-        [SerializeField] private AxisLock m_AxisLock = AxisLock.None;
-
         // Grab origin in scene space for this drag (not the Save/Recall pose).
-        private Vector3 m_AxisLockGrabOrigin_SS;
-        private bool m_HasAxisLockGrabOrigin;
+        private Vector3 m_MirrorSlideDefaultGrabOrigin_SS;
+        private bool m_HasMirrorSlideDefaultGrabOrigin;
 
         // If within this distance of saved pose on grab start, line through saved position.
-        private const float kAxisLockSavedPoseSnapMeters = 0.05f;
+        private const float kMirrorSlideDefaultSavedPoseSnapMeters = 0.05f;
 
         // One-level undo: pose at start of last grab that actually moved the mirror.
         private TrTransform m_UndoMirrorPose_SS;
@@ -305,6 +307,27 @@ namespace TiltBrush
             {
                 return new Plane(transform.right, transform.position);
             }
+        }
+
+        public string DescribeMirrorAlignment(Vector3 otherWorldPos)
+        {
+            TrTransform scene = App.Scene.AsScene[transform];
+            Vector3 mesh = transform.position;
+            Renderer rend = GetComponentInChildren<Renderer>();
+            if (rend != null)
+            {
+                mesh = rend.bounds.center;
+            }
+            Vector3 guideDelta = otherWorldPos - transform.position;
+            Vector3 meshDelta = mesh - transform.position;
+            return "pivot=" + transform.position +
+                " scenePos=" + scene.translation +
+                " sceneEuler=" + scene.rotation.eulerAngles +
+                " worldEuler=" + transform.rotation.eulerAngles +
+                " planeN=" + transform.right +
+                " meshCenter=" + mesh +
+                " meshDelta=" + meshDelta +
+                " otherDelta=" + guideDelta;
         }
 
         public bool TryGetSlotPlane_GS(int index, out Plane plane_GS)
@@ -658,6 +681,10 @@ namespace TiltBrush
 
         public void SetMode(PointerManager.SymmetryMode rMode)
         {
+            if (rMode == PointerManager.SymmetryMode.None)
+            {
+                ClearAlignmentAlert();
+            }
             switch (rMode)
             {
                 case PointerManager.SymmetryMode.SinglePlane:
@@ -727,52 +754,46 @@ namespace TiltBrush
                 }
             }
 
-            if (m_AxisLock != AxisLock.None)
+            result.translation = ApplyMirrorSlideDefaultTranslation_GS(result.translation);
+            if (m_MirrorSlideDefault != MirrorSlideDefault.None)
             {
-                Debug.LogError(
-                    "MIRROR_AXIS: GetDesiredTransform lock=" + m_AxisLock +
-                    " hasOrigin=" + m_HasAxisLockGrabOrigin);
+                // Locked slide is translation only. Facing stays at grab start.
+                result.rotation = App.Scene.Pose.rotation * m_PoseAtGrabBegin_SS.rotation;
             }
-
-            result.translation = ApplyAxisLockTranslation_GS(result.translation);
             return result;
         }
 
 
 
-        Vector3 ApplyAxisLockTranslation_GS(Vector3 desiredPos_GS)
+        Vector3 ApplyMirrorSlideDefaultTranslation_GS(Vector3 desiredPos_GS)
         {
-            if (m_AxisLock == AxisLock.None || !m_HasAxisLockGrabOrigin)
+            if (m_MirrorSlideDefault == MirrorSlideDefault.None || !m_HasMirrorSlideDefaultGrabOrigin)
             {
                 return desiredPos_GS;
             }
 
-            Debug.LogError(
-                "MIRROR_AXIS: ApplyTranslation lock=" + m_AxisLock +
-                " origin_SS=" + m_AxisLockGrabOrigin_SS);
-
             Vector3 desired_SS = App.Scene.Pose.inverse.MultiplyPoint(desiredPos_GS);
-            Vector3 origin_SS = m_AxisLockGrabOrigin_SS;
+            Vector3 origin_SS = m_MirrorSlideDefaultGrabOrigin_SS;
             Vector3 locked_SS = origin_SS;
 
-            switch (m_AxisLock)
+            switch (m_MirrorSlideDefault)
             {
-                case AxisLock.X:
+                case MirrorSlideDefault.X:
                     locked_SS.x = desired_SS.x;
                     locked_SS.y = origin_SS.y;
                     locked_SS.z = origin_SS.z;
                     break;
-                case AxisLock.Y:
+                case MirrorSlideDefault.Y:
                     locked_SS.x = origin_SS.x;
                     locked_SS.y = desired_SS.y;
                     locked_SS.z = origin_SS.z;
                     break;
-                case AxisLock.Z:
+                case MirrorSlideDefault.Z:
                     locked_SS.x = origin_SS.x;
                     locked_SS.y = origin_SS.y;
                     locked_SS.z = desired_SS.z;
                     break;
-                case AxisLock.All:
+                case MirrorSlideDefault.All:
                     locked_SS = origin_SS;
                     break;
             }
@@ -780,63 +801,69 @@ namespace TiltBrush
             return App.Scene.Pose.MultiplyPoint(locked_SS);
         }
 
-        void CaptureAxisLockGrabOrigin_SS()
+        void CaptureMirrorSlideDefaultGrabOrigin_SS()
         {
             Vector3 pos_SS = App.Scene.AsScene[transform].translation;
 
             if (m_HasSavedMirrorPose
-                && m_AxisLock != AxisLock.None
+                && m_MirrorSlideDefault != MirrorSlideDefault.None
                 && Vector3.Distance(pos_SS, m_SavedMirrorPose_SS.translation)
-                    <= kAxisLockSavedPoseSnapMeters * App.METERS_TO_UNITS)
+                    <= kMirrorSlideDefaultSavedPoseSnapMeters * App.METERS_TO_UNITS)
             {
                 pos_SS = m_SavedMirrorPose_SS.translation;
             }
 
-            m_AxisLockGrabOrigin_SS = pos_SS;
-            m_HasAxisLockGrabOrigin = true;
+            m_MirrorSlideDefaultGrabOrigin_SS = pos_SS;
+            m_HasMirrorSlideDefaultGrabOrigin = true;
 
             Debug.LogError(
-                "MIRROR_AXIS: CaptureOrigin lock=" + m_AxisLock +
-                " origin_SS=" + m_AxisLockGrabOrigin_SS +
-                " hasOrigin=" + m_HasAxisLockGrabOrigin);
+                "MIRROR_AXIS: CaptureOrigin lock=" + m_MirrorSlideDefault +
+                " origin_SS=" + m_MirrorSlideDefaultGrabOrigin_SS +
+                " hasOrigin=" + m_HasMirrorSlideDefaultGrabOrigin);
         }
 
-        void ApplyAxisLockOnRelease_SS()
+        void ApplyMirrorSlideDefaultOnRelease_SS()
         {
-            if (m_AxisLock == AxisLock.None || !m_HasAxisLockGrabOrigin)
+            if (m_MirrorSlideDefault == MirrorSlideDefault.None || !m_HasMirrorSlideDefaultGrabOrigin)
             {
                 return;
             }
 
             Debug.LogError(
-                "MIRROR_AXIS: ReleaseProject lock=" + m_AxisLock +
-                " origin_SS=" + m_AxisLockGrabOrigin_SS);
+                "[SymmetryWidget.MirrorSlideDefault] release lock=" + m_MirrorSlideDefault +
+                " origin=" + m_MirrorSlideDefaultGrabOrigin_SS +
+                " heldEuler=" + m_PoseAtGrabBegin_SS.rotation.eulerAngles);
 
             TrTransform xf_SS = App.Scene.AsScene[transform];
             Vector3 p = xf_SS.translation;
-            Vector3 o = m_AxisLockGrabOrigin_SS;
+            Vector3 o = m_MirrorSlideDefaultGrabOrigin_SS;
 
-            switch (m_AxisLock)
+            switch (m_MirrorSlideDefault)
             {
-                case AxisLock.X:
+                case MirrorSlideDefault.X:
                     p.y = o.y;
                     p.z = o.z;
                     break;
-                case AxisLock.Y:
+                case MirrorSlideDefault.Y:
                     p.x = o.x;
                     p.z = o.z;
                     break;
-                case AxisLock.Z:
+                case MirrorSlideDefault.Z:
                     p.x = o.x;
                     p.y = o.y;
                     break;
-                case AxisLock.All:
+                case MirrorSlideDefault.All:
                     p = o;
                     break;
             }
 
             xf_SS.translation = p;
+            xf_SS.rotation = m_PoseAtGrabBegin_SS.rotation;
             App.Scene.AsScene[transform] = xf_SS;
+            if (m_AlignmentSlot >= 0)
+            {
+                NoteAlignmentAgainstSlot(m_AlignmentSlot);
+            }
             if (m_NonScaleChild != null)
             {
                 m_NonScaleChild.OnPosRotChanged();
@@ -1009,8 +1036,11 @@ namespace TiltBrush
             }
 
             m_PoseAtGrabBegin_SS = App.Scene.AsScene[transform];
-            CaptureAxisLockGrabOrigin_SS();
-            Debug.LogError("MIRROR_AXIS: BeginInteracting lock=" + m_AxisLock);
+            CaptureMirrorSlideDefaultGrabOrigin_SS();
+            Debug.LogError(
+                "[SymmetryWidget.MirrorSlideDefault] begin lock=" + m_MirrorSlideDefault +
+                " origin=" + m_MirrorSlideDefaultGrabOrigin_SS +
+                " euler=" + m_PoseAtGrabBegin_SS.rotation.eulerAngles);
         }
 
         override protected void OnUserEndInteracting()
@@ -1021,10 +1051,10 @@ namespace TiltBrush
                 m_Home.gameObject.SetActive(false);
             }
 
-            Debug.LogError("MIRROR_AXIS: EndInteracting lock=" + m_AxisLock);
+            Debug.LogError("MIRROR_AXIS: EndInteracting lock=" + m_MirrorSlideDefault);
 
-            ApplyAxisLockOnRelease_SS();
-            m_HasAxisLockGrabOrigin = false;
+            ApplyMirrorSlideDefaultOnRelease_SS();
+            m_HasMirrorSlideDefaultGrabOrigin = false;
 
             // If this grab actually moved the mirror, offer undo back to grab-start pose.
             {
@@ -1144,12 +1174,13 @@ namespace TiltBrush
                     "[SymmetryWidget.ApplyLiveMirrorTint] skip enabled=False");
                 return;
             }
-            Color tint = m_LiveMirrorTint;
+            Color tint = m_AlignmentAlert ? Color.red : m_LiveMirrorTint;
             Debug.LogError(
                 "[SymmetryWidget.ApplyLiveMirrorTint] apply rgb=(" +
                 tint.r.ToString("0.00") + "," +
                 tint.g.ToString("0.00") + "," +
-                tint.b.ToString("0.00") + ")");
+                tint.b.ToString("0.00") + ")" +
+                " alert=" + m_AlignmentAlert);
             if (m_FrontBackMesh != null)
             {
                 ApplyTintToRenderer(m_FrontBackMesh, tint);
@@ -1212,9 +1243,6 @@ namespace TiltBrush
 
                 ApplyLiveMirrorTint();
                 AudioManager.m_Instance.PlayMirrorSound(transform.position);
-
-                // Do not apply preferred orientation on show/load — keeps spawn pose stable.
-                // Orientation buttons + OnUserEndInteracting apply explicit reorient.
 
                 TrTransform xf_SS = App.Scene.AsScene[transform];
                 Color tint = m_LiveMirrorTint;
@@ -1357,6 +1385,112 @@ namespace TiltBrush
                 AngularVelocity_GS = Vector3.zero;
                 ApplyPreferredOrientation_SS();
             }
+            NoteUnsavedPose();
+            MirrorControlsPanel.RefreshOpenOrientationIcons();
+        }
+
+        bool m_AppliedTunnelDefault;
+
+        public void ApplyMultiMirrorTunnelDefault()
+        {
+            if (m_AppliedTunnelDefault || HasUserMirrorSaveSlot())
+            {
+                NoteUnsavedPose();
+                ApplyLiveMirrorTint();
+                MirrorControlsPanel.RefreshOpenOrientationIcons();
+                return;
+            }
+            m_AppliedTunnelDefault = true;
+            SetPreferredOrientation(PreferredOrientation.HorizontalForward, applyNow: true);
+            Debug.LogError(
+                "[SymmetryWidget.ApplyMultiMirrorTunnelDefault] orient=HorizontalForward");
+            NoteUnsavedPose();
+            ApplyLiveMirrorTint();
+            MirrorControlsPanel.RefreshOpenOrientationIcons();
+        }
+
+        bool HasUserMirrorSaveSlot()
+        {
+            for (int i = 0; i < kMirrorSaveSlotCount; ++i)
+            {
+                if (i == kTrueCenterSlotIndex)
+                {
+                    continue;
+                }
+                if (m_MirrorSaveSlotOccupied != null && m_MirrorSaveSlotOccupied[i])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool LiveOrientationMatchesSavedSlot()
+        {
+            Quaternion home = GetHomeRotationForOrientation(m_PreferredOrientation);
+            for (int i = 0; i < kMirrorSaveSlotCount; ++i)
+            {
+                TrTransform saved;
+                if (!TryGetMirrorSaveSlotPose(i, out saved))
+                {
+                    continue;
+                }
+                if (Quaternion.Angle(saved.rotation, home) <= 1.0f)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void NoteUnsavedPose()
+        {
+            bool saved = false;
+            for (int i = 0; i < kMirrorSaveSlotCount; ++i)
+            {
+                if (IsMirrorSaveSlotMatchingCurrent(i))
+                {
+                    saved = true;
+                    break;
+                }
+            }
+            m_AlignmentAlert = !saved;
+            m_AlignmentSlot = saved ? m_AlignmentSlot : -1;
+            Debug.LogError(
+                "[SymmetryWidget.NoteUnsavedPose] saved=" + saved +
+                " alert=" + m_AlignmentAlert +
+                " orient=" + m_PreferredOrientation);
+        }
+
+        public void SyncPreferredOrientationFromCurrentPose()
+        {
+            Quaternion current = App.Scene.AsScene[transform].rotation;
+            PreferredOrientation best = m_PreferredOrientation;
+            float bestAngle = 180f;
+            PreferredOrientation[] modes = new PreferredOrientation[]
+            {
+                PreferredOrientation.VerticalForward,
+                PreferredOrientation.VerticalSideways,
+                PreferredOrientation.HorizontalSideways,
+                PreferredOrientation.HorizontalForward
+            };
+            for (int i = 0; i < modes.Length; ++i)
+            {
+                float angle = Quaternion.Angle(current, GetHomeRotationForOrientation(modes[i]));
+                if (angle < bestAngle)
+                {
+                    bestAngle = angle;
+                    best = modes[i];
+                }
+            }
+            PreferredOrientation previous = m_PreferredOrientation;
+            m_PreferredOrientation = best;
+            Debug.LogError(
+                "[SymmetryWidget.SyncPreferredOrientation] from=" + previous +
+                " to=" + best +
+                " angle=" + bestAngle.ToString("F1") +
+                " euler=" + current.eulerAngles);
+            MirrorControlsPanel.RefreshOpenOrientationIcons();
         }
 
         public void SetOrientationHorizontalSideways()
@@ -1380,58 +1514,58 @@ namespace TiltBrush
         }
 
 
-        public AxisLock CurrentAxisLock
+        public MirrorSlideDefault CurrentMirrorSlideDefault
         {
             get
             {
-                return m_AxisLock;
+                return m_MirrorSlideDefault;
             }
         }
 
-        public void SetAxisLock(AxisLock lockMode)
+        public void SetMirrorSlideDefault(MirrorSlideDefault lockMode)
         {
-            m_AxisLock = lockMode;
+            m_MirrorSlideDefault = lockMode;
         }
 
 
         /// Sets lock, or clears to None if the same lock is requested again.
-        public void ToggleAxisLock(AxisLock lockMode)
+        public void ToggleMirrorSlideDefault(MirrorSlideDefault lockMode)
         {
-            if (m_AxisLock == lockMode)
+            if (m_MirrorSlideDefault == lockMode)
             {
-                m_AxisLock = AxisLock.None;
+                m_MirrorSlideDefault = MirrorSlideDefault.None;
             }
             else
             {
-                m_AxisLock = lockMode;
+                m_MirrorSlideDefault = lockMode;
             }
-            Debug.LogError("MIRROR_AXIS: ToggleAxisLock -> " + m_AxisLock);
+            Debug.LogError("MIRROR_AXIS: ToggleMirrorSlideDefault -> " + m_MirrorSlideDefault);
         }
 
-        public void ToggleAxisLockX()
+        public void ToggleMirrorSlideDefaultX()
         {
-            ToggleAxisLock(AxisLock.X);
+            ToggleMirrorSlideDefault(MirrorSlideDefault.X);
         }
 
-        public void ToggleAxisLockY()
+        public void ToggleMirrorSlideDefaultY()
         {
-            ToggleAxisLock(AxisLock.Y);
+            ToggleMirrorSlideDefault(MirrorSlideDefault.Y);
         }
 
-        public void ToggleAxisLockZ()
+        public void ToggleMirrorSlideDefaultZ()
         {
-            ToggleAxisLock(AxisLock.Z);
+            ToggleMirrorSlideDefault(MirrorSlideDefault.Z);
         }
 
-        public void ToggleAxisLockAll()
+        public void ToggleMirrorSlideDefaultAll()
         {
-            ToggleAxisLock(AxisLock.All);
+            ToggleMirrorSlideDefault(MirrorSlideDefault.All);
         }
 
-        public void ClearAxisLock()
+        public void ClearMirrorSlideDefault()
         {
-            m_AxisLock = AxisLock.None;
-            Debug.LogError("MIRROR_AXIS: ClearAxisLock -> None");
+            m_MirrorSlideDefault = MirrorSlideDefault.None;
+            Debug.LogError("MIRROR_AXIS: ClearMirrorSlideDefault -> None");
         }
 
 
@@ -1617,6 +1751,8 @@ namespace TiltBrush
             {
                 ApplyMirrorTrueCenter();
                 Debug.LogError("MIRROR_SLOT: RECALL index=0 True Center");
+                NoteAlignmentAgainstSlot(index);
+                SyncPreferredOrientationFromCurrentPose();
                 return;
             }
             if (!m_MirrorSaveSlotOccupied[index])
@@ -1630,7 +1766,9 @@ namespace TiltBrush
                 "MIRROR_SLOT: RECALL index=" + index +
                 " pos=" + m_MirrorSaveSlotPose_SS[index].translation);
             SetTeleportDest(index);
+            NoteAlignmentAgainstSlot(index);
             RefreshVisibleSlotGuides();
+            SyncPreferredOrientationFromCurrentPose();
         }
 
         public void ClearMirrorSaveSlot(int index)
@@ -1698,6 +1836,7 @@ namespace TiltBrush
             ApplyMirrorPose_SS(GetMirrorTrueCenterPose_SS());
             SetTeleportDest(kTrueCenterSlotIndex);
             RefreshVisibleSlotGuides();
+            SyncPreferredOrientationFromCurrentPose();
             Debug.LogError("MIRROR_SLOT: TRUE CENTER applied slot1");
         }
 
@@ -2029,6 +2168,32 @@ namespace TiltBrush
             return false;
         }
 
+
+        bool m_AlignmentAlert;
+        int m_AlignmentSlot = -1;
+
+        public void NoteAlignmentAgainstSlot(int index)
+        {
+            m_AlignmentSlot = index;
+            bool match = IsMirrorSaveSlotMatchingCurrent(index);
+            m_AlignmentAlert = !match;
+            Debug.LogError(
+                "[SymmetryWidget.NoteAlignmentAgainstSlot] slot=" + index +
+                " match=" + match +
+                " alert=" + m_AlignmentAlert);
+            ApplyLiveMirrorTint();
+        }
+
+        public void ClearAlignmentAlert()
+        {
+            if (!m_AlignmentAlert && m_AlignmentSlot < 0)
+            {
+                return;
+            }
+            m_AlignmentAlert = false;
+            m_AlignmentSlot = -1;
+            ApplyLiveMirrorTint();
+        }
 
         /// True if occupied slot pose matches the live mirror (position + rotation).
         public bool IsMirrorSaveSlotMatchingCurrent(int index)
@@ -3173,10 +3338,8 @@ namespace TiltBrush
             Debug.LogError(
                 "[SymmetryWidget.ShowSlotGuide] SLOTGUIDE: shown index=" + index +
                 " pos=" + pose_SS.translation +
-                " liveScale=" + GetLiveShowScale() +
-                " displayMul=" + m_SlotGuideDisplayScale +
-                " appliedScale=" + applied.scale +
-                " worldPos=" + guide.transform.position);
+                " worldPos=" + guide.transform.position +
+                " " + DescribeMirrorAlignment(guide.transform.position));
         }
 
 

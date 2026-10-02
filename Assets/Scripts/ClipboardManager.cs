@@ -25,7 +25,10 @@ namespace TiltBrush
     /// position, etc.
     public class ClipboardManager : MonoBehaviour
     {
-        static public ClipboardManager Instance { get; private set; }
+        static public ClipboardManager Instance
+        {
+            get; private set;
+        }
 
         [SerializeField] private Vector3 m_DuplicateOffset;
 
@@ -87,16 +90,26 @@ namespace TiltBrush
             );
         }
 
-        /// Copies selection across the live SinglePlane mirror. No offset, no identity clone.
+        /// Copies selection across the live mirror. No offset, no identity clone.
+        /// SinglePlane: one reflection. MultiMirror: every non-original slot.
         public void MirrorCopySelection()
         {
             if (!CanCopy)
             {
+                Debug.LogError("[ClipboardManager.MirrorCopySelection] skip noSelection");
                 return;
             }
-            if (PointerManager.m_Instance == null ||
-                PointerManager.m_Instance.CurrentSymmetryMode != PointerManager.SymmetryMode.SinglePlane)
+            if (PointerManager.m_Instance == null)
             {
+                Debug.LogError("[ClipboardManager.MirrorCopySelection] skip noPointer");
+                return;
+            }
+            var mode = PointerManager.m_Instance.CurrentSymmetryMode;
+            if (mode != PointerManager.SymmetryMode.SinglePlane &&
+                mode != PointerManager.SymmetryMode.MultiMirror)
+            {
+                Debug.LogError(
+                    "[ClipboardManager.MirrorCopySelection] skip mode=" + mode);
                 return;
             }
 
@@ -109,9 +122,16 @@ namespace TiltBrush
             AudioManager.m_Instance.PlayDuplicateSound(
                 InputManager.m_Instance.GetControllerPosition(controller));
 
-            SketchMemoryScript.m_Instance.PerformAndRecordCommand(
-                new MirrorCopySelectionCommand()
-            );
+            var mirrorCopy = new MirrorCopySelectionCommand();
+            if (mirrorCopy.CreatedCount > 0)
+            {
+                SketchMemoryScript.m_Instance.PerformAndRecordCommand(mirrorCopy);
+            }
+            else
+            {
+                Debug.LogError(
+                    "[ClipboardManager.MirrorCopySelection] no copies mode=" + mode);
+            }
         }
 
 

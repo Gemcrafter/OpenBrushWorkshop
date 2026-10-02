@@ -4574,11 +4574,13 @@ namespace TiltBrush
                 case GlobalCommands.SymmetryPlane:
                     if (PointerManager.m_Instance.CurrentSymmetryMode != PointerManager.SymmetryMode.SinglePlane)
                     {
+                        LogMirrorModeToggle("SymmetryPlane", true, PointerManager.SymmetryMode.SinglePlane);
                         PointerManager.m_Instance.SetSymmetryMode(PointerManager.SymmetryMode.SinglePlane);
                         ControllerConsoleScript.m_Instance.AddNewLine("Mirror Enabled");
                     }
                     else
                     {
+                        LogMirrorModeToggle("SymmetryPlane", false, PointerManager.SymmetryMode.None);
                         PointerManager.m_Instance.SetSymmetryMode(PointerManager.SymmetryMode.None);
                         ControllerConsoleScript.m_Instance.AddNewLine("Mirror Off");
                     }
@@ -4586,11 +4588,13 @@ namespace TiltBrush
                 case GlobalCommands.MultiMirror:
                     if (PointerManager.m_Instance.CurrentSymmetryMode != PointerManager.SymmetryMode.MultiMirror)
                     {
+                        LogMirrorModeToggle("MultiMirror", true, PointerManager.SymmetryMode.MultiMirror);
                         PointerManager.m_Instance.SetSymmetryMode(PointerManager.SymmetryMode.MultiMirror);
                         ControllerConsoleScript.m_Instance.AddNewLine("Symmetry Enabled");
                     }
                     else
                     {
+                        LogMirrorModeToggle("MultiMirror", false, PointerManager.SymmetryMode.None);
                         PointerManager.m_Instance.SetSymmetryMode(PointerManager.SymmetryMode.None);
                     }
                     InputManager.m_Instance.TriggerHaptics(InputManager.ControllerName.Brush, 0.1f);
@@ -4965,6 +4969,20 @@ namespace TiltBrush
                     }
                 case GlobalCommands.MirrorCopySelection:
                     {
+                        int strokes = SelectionManager.m_Instance != null
+                            ? SelectionManager.m_Instance.SelectedStrokeCount : -1;
+                        int widgets = 0;
+                        if (SelectionManager.m_Instance != null && SelectionManager.m_Instance.SelectedWidgets != null)
+                        {
+                            foreach (var unused in SelectionManager.m_Instance.SelectedWidgets) widgets++;
+                        }
+                        Debug.LogError(
+                            "[SketchControlsScript.MirrorCopy] attempt mode=" +
+                            (PointerManager.m_Instance != null
+                                ? PointerManager.m_Instance.CurrentSymmetryMode.ToString() : "none") +
+                            " strokes=" + strokes +
+                            " widgets=" + widgets +
+                            " hasSelection=" + (SelectionManager.m_Instance != null && SelectionManager.m_Instance.HasSelection));
                         ClipboardManager.Instance.MirrorCopySelection();
                         EatToolScaleInput();
                         break;
@@ -5525,10 +5543,30 @@ namespace TiltBrush
                 case GlobalCommands.ResetAllPanels: return m_PanelManager.PanelsHaveBeenCustomized();
                 case GlobalCommands.Duplicate: return ClipboardManager.Instance.CanCopy;
                 case GlobalCommands.MirrorCopySelection:
-                    return ClipboardManager.Instance.CanCopy &&
-                        PointerManager.m_Instance != null &&
-                        PointerManager.m_Instance.CurrentSymmetryMode ==
-                            PointerManager.SymmetryMode.SinglePlane;
+                    {
+                        bool canCopy = ClipboardManager.Instance.CanCopy;
+                        var mode = PointerManager.m_Instance != null
+                            ? PointerManager.m_Instance.CurrentSymmetryMode
+                            : PointerManager.SymmetryMode.None;
+                        bool modeOk = mode == PointerManager.SymmetryMode.SinglePlane ||
+                            mode == PointerManager.SymmetryMode.MultiMirror;
+                        bool available = canCopy && PointerManager.m_Instance != null && modeOk;
+                        int strokes = SelectionManager.m_Instance != null
+                            ? SelectionManager.m_Instance.SelectedStrokeCount : -1;
+                        string sig = available + "|" + mode + "|" + canCopy + "|" + strokes;
+                        if (sig != m_LastMirrorCopyAvail)
+                        {
+                            m_LastMirrorCopyAvail = sig;
+                            Debug.LogError(
+                                "[SketchControlsScript.MirrorCopyAvail] available=" + available +
+                                " mode=" + mode +
+                                " singleOn=" + (mode == PointerManager.SymmetryMode.SinglePlane) +
+                                " multiOn=" + (mode == PointerManager.SymmetryMode.MultiMirror) +
+                                " canCopy=" + canCopy +
+                                " strokes=" + strokes);
+                        }
+                        return available;
+                    }
                 case GlobalCommands.ToggleGroupStrokesAndWidgets: return SelectionManager.m_Instance.SelectionCanBeGrouped;
                 case GlobalCommands.SaveModel:
                 case GlobalCommands.SaveSelected:
@@ -5623,6 +5661,27 @@ namespace TiltBrush
 
         int m_LastLaunchToggleFrame = -1;
         BasePanel.PanelType m_LastLaunchToggleType = BasePanel.PanelType.Sketchbook;
+
+
+        string m_LastMirrorCopyAvail;
+
+        void LogMirrorModeToggle(string command, bool turningOn, PointerManager.SymmetryMode result)
+        {
+            string panel = "none";
+            if (m_CurrentGazeObject != -1 && m_PanelManager != null)
+            {
+                BasePanel gaze = m_PanelManager.GetPanel(m_CurrentGazeObject);
+                if (gaze != null)
+                {
+                    panel = gaze.name + " type=" + gaze.Type;
+                }
+            }
+            Debug.LogError(
+                "[SketchControlsScript.MirrorMode] command=" + command +
+                " on=" + turningOn +
+                " result=" + result +
+                " panel=" + panel);
+        }
 
         public void OpenPanelOfType(BasePanel.PanelType type, TrTransform trSpawnXf, bool forced = false)
         {
@@ -5950,7 +6009,6 @@ namespace TiltBrush
             }
         }
     }
-
 
 
 } // namespace TiltBrush

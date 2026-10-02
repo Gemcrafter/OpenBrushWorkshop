@@ -497,31 +497,47 @@ namespace TiltBrush
                 }
                 Vector3 handDelta = handNow - m_PlaneLockGrabHandPos_GS;
                 float along = Vector3.Dot(handDelta, n);
-                Vector3 slide = handDelta - n * along;
                 SymmetryWidget mirror = PointerManager.m_Instance != null
                     ? PointerManager.m_Instance.SymmetryWidget
                     : null;
                 bool tunnel = mirror != null && mirror.TunnelLockActive;
                 bool plane = mirror != null && mirror.PlaneLockActive;
-                if (tunnel && !plane)
+                Quaternion sceneRot = App.Scene.Pose.rotation;
+                Vector3 sceneX = sceneRot * Vector3.right;
+                Vector3 sceneY = sceneRot * Vector3.up;
+                Vector3 sceneZ = sceneRot * Vector3.forward;
+                Vector3 slide = Vector3.zero;
+                SymmetryWidget.MirrorSlideDefault axis = mirror != null
+                    ? mirror.CurrentMirrorSlideDefault
+                    : SymmetryWidget.MirrorSlideDefault.None;
+                if (axis == SymmetryWidget.MirrorSlideDefault.X)
                 {
-                    Vector3 f = m_PlaneLockForward_GS;
-                    if (f.sqrMagnitude < 1e-8f)
-                    {
-                        f = Vector3.forward;
-                    }
-                    f.Normalize();
-                    slide = f * Vector3.Dot(handDelta, f);
+                    slide = sceneX * Vector3.Dot(handDelta, sceneX);
+                }
+                else if (axis == SymmetryWidget.MirrorSlideDefault.Y)
+                {
+                    slide = sceneY * Vector3.Dot(handDelta, sceneY);
+                }
+                else if (axis == SymmetryWidget.MirrorSlideDefault.Z)
+                {
+                    slide = sceneZ * Vector3.Dot(handDelta, sceneZ);
+                }
+                else if (axis == SymmetryWidget.MirrorSlideDefault.All)
+                {
+                    slide = Vector3.zero;
+                }
+                else if (tunnel && !plane)
+                {
+                    slide = sceneZ * Vector3.Dot(handDelta, sceneZ);
                 }
                 else if (plane && !tunnel)
                 {
-                    Vector3 u = m_PlaneLockUp_GS;
-                    if (u.sqrMagnitude < 1e-8f)
-                    {
-                        u = Vector3.up;
-                    }
-                    u.Normalize();
-                    slide = u * Vector3.Dot(handDelta, u);
+                    slide = sceneY * Vector3.Dot(handDelta, sceneY);
+                }
+                else
+                {
+                    slide = sceneY * Vector3.Dot(handDelta, sceneY)
+                        + sceneZ * Vector3.Dot(handDelta, sceneZ);
                 }
                 outXf.translation = m_PlaneLockGrabStartPos_GS + slide;
                 outXf.rotation = m_PlaneLockGrabStartRot_GS;
@@ -533,7 +549,9 @@ namespace TiltBrush
                 {
                     Debug.LogError(
                         "[SelectionWidget.GetDesiredTransform] APPLY selection-box only" +
-                        " along=" + along.ToString("F3") +
+                        " axis=" + axis +
+                        " tunnel=" + tunnel +
+                        " plane=" + plane +
                         " slide=" + slide.magnitude.ToString("F3") +
                         " start=" + m_PlaneLockGrabStartPos_GS +
                         " out=" + outXf.translation);

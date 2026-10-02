@@ -184,15 +184,28 @@ namespace TiltBrush
 
 
 
+        public static void RefreshOpenOrientationIcons()
+        {
+            MirrorControlsPanel[] panels = FindObjectsOfType<MirrorControlsPanel>();
+            for (int i = 0; i < panels.Length; ++i)
+            {
+                if (panels[i] != null)
+                {
+                    panels[i].RefreshMirrorControlsPanelTints();
+                }
+            }
+        }
+
         void RefreshMirrorControlsPanelTints()
         {
             SymmetryWidget widget = FindSymmetryWidget();
             SymmetryWidget.PreferredOrientation orient =
                 widget != null
                     ? widget.CurrentPreferredOrientation
-                    : SymmetryWidget.PreferredOrientation.VerticalForward;
-            SymmetryWidget.AxisLock axis =
-                widget != null ? widget.CurrentAxisLock : SymmetryWidget.AxisLock.None;
+                    : SymmetryWidget.PreferredOrientation.HorizontalForward;
+            bool orientSaved = widget != null && widget.LiveOrientationMatchesSavedSlot();
+            SymmetryWidget.MirrorSlideDefault axis =
+                widget != null ? widget.CurrentMirrorSlideDefault : SymmetryWidget.MirrorSlideDefault.None;
 
             ActionToggleButton[] toggles = GetComponentsInChildren<ActionToggleButton>(true);
             for (int i = 0; i < toggles.Length; ++i)
@@ -204,33 +217,38 @@ namespace TiltBrush
 
                 string name = toggles[i].gameObject.name;
                 bool active = false;
+                bool isOrientation = false;
                 bool isMirrorModeControl = true;
 
                 switch (name)
                 {
                     case "SetMirrorHorizontalSideways":
                         active = orient == SymmetryWidget.PreferredOrientation.HorizontalSideways;
+                        isOrientation = true;
                         break;
                     case "SetMirrorHorizontalForward":
                         active = orient == SymmetryWidget.PreferredOrientation.HorizontalForward;
+                        isOrientation = true;
                         break;
                     case "SetMirrorVerticalForward":
                         active = orient == SymmetryWidget.PreferredOrientation.VerticalForward;
+                        isOrientation = true;
                         break;
                     case "SetMirrorVerticalSideways":
                         active = orient == SymmetryWidget.PreferredOrientation.VerticalSideways;
+                        isOrientation = true;
                         break;
                     case "Left-Right-X":
-                        active = axis == SymmetryWidget.AxisLock.X;
+                        active = axis == SymmetryWidget.MirrorSlideDefault.X;
                         break;
                     case "Up-Down-Y":
-                        active = axis == SymmetryWidget.AxisLock.Y;
+                        active = axis == SymmetryWidget.MirrorSlideDefault.Y;
                         break;
                     case "Forward-Back-Z":
-                        active = axis == SymmetryWidget.AxisLock.Z;
+                        active = axis == SymmetryWidget.MirrorSlideDefault.Z;
                         break;
                     case "LockMirrorMovement":
-                        active = axis == SymmetryWidget.AxisLock.All;
+                        active = axis == SymmetryWidget.MirrorSlideDefault.All;
                         break;
                     default:
                         isMirrorModeControl = false;
@@ -242,9 +260,16 @@ namespace TiltBrush
                     continue;
                 }
 
-                ForceMirrorControlsPanelButtonTint(
-                    toggles[i],
-                    active ? kMirrorControlsPanelActiveTint : kMirrorControlsPanelInactiveTint);
+                Color tint = kMirrorControlsPanelInactiveTint;
+                if (active && isOrientation && !orientSaved)
+                {
+                    tint = Color.red;
+                }
+                else if (active)
+                {
+                    tint = kMirrorControlsPanelActiveTint;
+                }
+                ForceMirrorControlsPanelButtonTint(toggles[i], tint);
             }
         }
 
@@ -353,8 +378,8 @@ namespace TiltBrush
                 Debug.LogError("MIRROR_AXIS: panel ToggleX — SymmetryWidget null");
                 return;
             }
-            widget.ToggleAxisLockX();
-            Debug.LogError("MIRROR_AXIS: panel ToggleX done, widget=" + widget.CurrentAxisLock);
+            widget.ToggleMirrorSlideDefaultX();
+            Debug.LogError("MIRROR_AXIS: panel ToggleX done, widget=" + widget.CurrentMirrorSlideDefault);
             RefreshMirrorControlsPanelTints();
         }
 
@@ -367,8 +392,8 @@ namespace TiltBrush
                 Debug.LogError("MIRROR_AXIS: panel ToggleY — SymmetryWidget null");
                 return;
             }
-            widget.ToggleAxisLockY();
-            Debug.LogError("MIRROR_AXIS: panel ToggleY done, widget=" + widget.CurrentAxisLock);
+            widget.ToggleMirrorSlideDefaultY();
+            Debug.LogError("MIRROR_AXIS: panel ToggleY done, widget=" + widget.CurrentMirrorSlideDefault);
             RefreshMirrorControlsPanelTints();
         }
 
@@ -381,8 +406,8 @@ namespace TiltBrush
                 Debug.LogError("MIRROR_AXIS: panel ToggleZ — SymmetryWidget null");
                 return;
             }
-            widget.ToggleAxisLockZ();
-            Debug.LogError("MIRROR_AXIS: panel ToggleZ done, widget=" + widget.CurrentAxisLock);
+            widget.ToggleMirrorSlideDefaultZ();
+            Debug.LogError("MIRROR_AXIS: panel ToggleZ done, widget=" + widget.CurrentMirrorSlideDefault);
             RefreshMirrorControlsPanelTints();
         }
 
@@ -395,8 +420,8 @@ namespace TiltBrush
                 Debug.LogError("MIRROR_AXIS: panel ToggleAll — SymmetryWidget null");
                 return;
             }
-            widget.ToggleAxisLockAll();
-            Debug.LogError("MIRROR_AXIS: panel ToggleAll done, widget=" + widget.CurrentAxisLock);
+            widget.ToggleMirrorSlideDefaultAll();
+            Debug.LogError("MIRROR_AXIS: panel ToggleAll done, widget=" + widget.CurrentMirrorSlideDefault);
             RefreshMirrorControlsPanelTints();
         }
 
@@ -438,7 +463,7 @@ namespace TiltBrush
                 m_LastLoggedAxisDescX = descX;
                 m_LastLoggedAxisDescZ = descZ;
                 SymmetryWidget widget = FindSymmetryWidget();
-                string lockName = widget != null ? widget.CurrentAxisLock.ToString() : "none";
+                string lockName = widget != null ? widget.CurrentMirrorSlideDefault.ToString() : "none";
                 Debug.LogError(
                     "[MirrorControlsPanel] AXIS_LABEL xIsSideways=" + xIsSideways +
                     " X=" + descX + " Z=" + descZ + " lock=" + lockName);

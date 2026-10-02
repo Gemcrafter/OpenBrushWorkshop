@@ -164,6 +164,9 @@ namespace TiltBrush
 
         [NonSerialized] public TrTransform m_SymmetryTransformEach = TrTransform.identity;
         [NonSerialized] public bool m_SymmetryTransformEachAfter;
+        Vector3 m_LastLoggedMultiMirrorCenterPos;
+        Vector3 m_LastLoggedMultiMirrorCenterEuler;
+        bool m_LoggedMultiMirrorCenter;
 
         // ---- Private member data
 
@@ -1515,11 +1518,20 @@ namespace TiltBrush
 
         public void SetSymmetryMode(SymmetryMode mode, bool recordCommand = true)
         {
+            string caller = "none";
+            var frame = new System.Diagnostics.StackTrace(1, false).GetFrame(0);
+            if (frame != null && frame.GetMethod() != null)
+            {
+                var method = frame.GetMethod();
+                caller = (method.DeclaringType != null ? method.DeclaringType.Name : "?") +
+                    "." + method.Name;
+            }
             Debug.LogError(
                 "[PointerManager.SetSymmetryMode] from=" + m_CurrentSymmetryMode +
                 " to=" + mode +
                 " record=" + recordCommand +
-                " useWidget=" + m_UseSymmetryWidget);
+                " useWidget=" + m_UseSymmetryWidget +
+                " caller=" + caller);
             // Early out if we're already in the requested mode (but allow None for initial hide of widget)
             if (mode != SymmetryMode.None && m_CurrentSymmetryMode == mode) return;
 
@@ -1565,6 +1577,10 @@ namespace TiltBrush
             m_CurrentSymmetryMode = mode;
             m_SymmetryWidgetScript.SetMode(m_CurrentSymmetryMode);
             m_SymmetryWidgetScript.Show(m_UseSymmetryWidget && SymmetryModeEnabled);
+            if (mode == SymmetryMode.MultiMirror)
+            {
+                m_SymmetryWidgetScript.ApplyMultiMirrorTunnelDefault();
+            }
             if (recordCommand)
             {
                 SketchMemoryScript.m_Instance.RecordCommand(
@@ -1638,6 +1654,8 @@ namespace TiltBrush
 
                 case SymmetryMode.MultiMirror:
                     {
+                        // Same rule as UpdateSymmetryPointerTransforms:
+                        // copies live in the live widget frame.
                         (TrTransform, TrTransform) trAndFix;
                         TrTransform tr;
                         {
@@ -1646,11 +1664,11 @@ namespace TiltBrush
                                     MainPointer.transform : m_SymmetryWidget
                             );
 
-                            // convert from widget-local coords to world coords
                             trAndFix = TrFromMatrixWithFixedReflections(m_CustomMirrorMatrices[child]);
-                            tr = trAndFix.Item1.TransformBy(xfCenter);
+                            tr = xfCenter * trAndFix.Item1 * xfCenter.inverse;
+                            LogMultiMirrorCenterIfChanged(xfCenter);
                         }
-                        return tr * xfMain * trAndFix.Item1;
+                        return tr * xfMain * trAndFix.Item2;
                     }
                 case SymmetryMode.ScriptedSymmetryMode:
                     {
@@ -1706,8 +1724,13 @@ namespace TiltBrush
                 case CustomSymmetryType.Point:
                 case CustomSymmetryType.Polyhedra:
                 default:
-                    var pointSym = new PointSymmetry(m_PointSymmetryFamily, m_PointSymmetryOrder, 0.1f);
+                    // 0 keeps the symmetry plane on the widget origin, same point as the regular mirror.
+                    var pointSym = new PointSymmetry(m_PointSymmetryFamily, m_PointSymmetryOrder, 0f);
                     m_CustomMirrorMatrices = pointSym.matrices;
+                    Debug.LogError(
+                        "[PointerManager.CalculateMirrorMatrices] point planeOffset=0 family=" +
+                        m_PointSymmetryFamily +
+                        " order=" + m_PointSymmetryOrder);
                     break;
             }
 
@@ -1763,6 +1786,32 @@ namespace TiltBrush
             }
         }
 
+        void LogMultiMirrorCenterIfChanged(TrTransform xfCenter)
+        {
+            Vector3 pos = xfCenter.translation;
+            Vector3 euler = xfCenter.rotation.eulerAngles;
+            if (m_LoggedMultiMirrorCenter
+                && (pos - m_LastLoggedMultiMirrorCenterPos).sqrMagnitude < 1e-4f
+                && (euler - m_LastLoggedMultiMirrorCenterEuler).sqrMagnitude < 0.25f)
+            {
+                return;
+            }
+
+            m_LoggedMultiMirrorCenter = true;
+            m_LastLoggedMultiMirrorCenterPos = pos;
+            m_LastLoggedMultiMirrorCenterEuler = euler;
+            string align = m_SymmetryWidgetScript != null
+                ? m_SymmetryWidgetScript.DescribeMirrorAlignment(pos)
+                : "noWidget";
+            Debug.LogError(
+                "[PointerManager.LogMultiMirrorCenterIfChanged] MULTIMIRROR_FRAME pos=" + pos +
+                " euler=" + euler +
+                " lockedToController=" + m_SymmetryLockedToController +
+                " family=" + m_PointSymmetryFamily +
+                " order=" + m_PointSymmetryOrder +
+                " " + align);
+        }
+
         void UpdateSymmetryPointerTransforms()
         {
             switch (m_CurrentSymmetryMode)
@@ -1796,10 +1845,11 @@ namespace TiltBrush
                             MainPointer.transform : m_SymmetryWidget
                         );
 
+                        LogMultiMirrorCenterIfChanged(xfCenter);
                         for (int i = 0; i < m_CustomMirrorMatrices.Count; i++)
                         {
                             (TrTransform, TrTransform) trAndFix = TrFromMatrixWithFixedReflections(m_CustomMirrorMatrices[i]);
-                            tr = xfCenter * trAndFix.Item1 * xfCenter.inverse; // convert from widget-local coords to world coords
+                            tr = xfCenter * trAndFix.Item1 * xfCenter.inverse;
                             var tmp = tr * pointer0 * trAndFix.Item2; // Work around 2018.3.x Mono parse bug
                             tmp.ToTransform(m_Pointers[i].m_Script.transform);
                             float scaledSize = m_Pointers[0].m_Script.BrushSize01 * Mathf.Abs(m_CustomMirrorMatrices[i].lossyScale.x);
@@ -2314,4 +2364,5 @@ namespace TiltBrush
             return xfSymmetriesGS;
         }
     }
+
 } // namespace TiltBrush
