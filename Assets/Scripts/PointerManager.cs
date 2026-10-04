@@ -2067,6 +2067,10 @@ namespace TiltBrush
             Debug.LogError(
                 "[PointerManager.DrawSingleSpan] room=" + Vector3.Distance(fromRoom, toRoom) +
                 " canvas=" + dir.magnitude);
+            if (m_SymmetryWidgetScript != null)
+            {
+                m_SymmetryWidgetScript.NoteArchitecturalStroke(SketchMemoryScript.m_Instance.MostRecentStroke);
+            }
             return true;
         }
 
